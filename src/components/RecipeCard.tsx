@@ -2,16 +2,26 @@ import { Recipe } from '@/types';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Clock, Users, Flame, Plus } from 'lucide-react';
+import { Clock, Users, Flame, Plus, Heart, BookmarkPlus } from 'lucide-react';
 import Image from 'next/image';
 
 interface RecipeCardProps {
   recipe: Recipe;
   onAddToMealPlan?: (recipe: Recipe) => void;
+  onToggleFavorite?: (recipe: Recipe) => void;
+  onAddToList?: (recipe: Recipe) => void;
+  isFavorite?: boolean;
   showAddButton?: boolean;
 }
 
-export function RecipeCard({ recipe, onAddToMealPlan, showAddButton = true }: RecipeCardProps) {
+export function RecipeCard({ 
+  recipe, 
+  onAddToMealPlan, 
+  onToggleFavorite,
+  onAddToList,
+  isFavorite = false,
+  showAddButton = true 
+}: RecipeCardProps) {
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       {/* Recipe Image */}
@@ -28,11 +38,33 @@ export function RecipeCard({ recipe, onAddToMealPlan, showAddButton = true }: Re
             <span className="text-4xl">🍽️</span>
           </div>
         )}
-        <div className="absolute top-2 right-2">
+        <div className="absolute top-2 right-2 flex gap-2">
           <Badge variant="secondary" className="bg-white/90">
             <Clock className="h-3 w-3 mr-1" />
             {recipe.time_minutes}m
           </Badge>
+        </div>
+        <div className="absolute top-2 left-2 flex gap-1">
+          {onToggleFavorite && (
+            <Button
+              size="sm"
+              variant="ghost"
+              className={`h-8 w-8 p-0 ${isFavorite ? 'text-red-500 bg-white/90' : 'text-gray-400 bg-white/90'} hover:bg-white`}
+              onClick={() => onToggleFavorite(recipe)}
+            >
+              <Heart className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
+            </Button>
+          )}
+          {onAddToList && (
+            <Button
+              size="sm"
+              variant="ghost"
+              className="h-8 w-8 p-0 text-gray-400 bg-white/90 hover:bg-white"
+              onClick={() => onAddToList(recipe)}
+            >
+              <BookmarkPlus className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       </div>
 

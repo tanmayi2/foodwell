@@ -4,19 +4,57 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { RecipeCard } from '@/components/RecipeCard';
-import { mockUser, mockRecipes, getRecommendedRecipes } from '@/lib/mockData';
+import { useRecipes } from '@/contexts/RecipeContext';
+import { mockUser, mockRecipes } from '@/lib/mockData';
 import { Recipe, MealPlanEntry } from '@/types';
-import { Calendar, Plus, Target, ShoppingCart, TrendingUp } from 'lucide-react';
+import { Calendar, Plus, Target, ShoppingCart, TrendingUp, Heart, BookOpen, Trash2, Edit3 } from 'lucide-react';
 
 export default function MealPlanPage() {
   const [user] = useState(mockUser);
   const [mealPlan, setMealPlan] = useState<MealPlanEntry[]>([]);
-  const [recommendedRecipes] = useState<Recipe[]>(getRecommendedRecipes(mockUser, mockRecipes));
+  const [newListName, setNewListName] = useState('');
+  const [newListDescription, setNewListDescription] = useState('');
+  const [showCreateList, setShowCreateList] = useState(false);
+  
+  const {
+    userRecipeData,
+    toggleFavorite,
+    isFavorite,
+    createList,
+    addToList,
+    removeFromList,
+    deleteList,
+    getRecipesInList,
+    getFavoriteRecipes
+  } = useRecipes();
 
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'] as const;
+
+  const favoriteRecipes = getFavoriteRecipes(mockRecipes);
+
+  const handleCreateList = () => {
+    if (newListName.trim()) {
+      createList(newListName.trim(), newListDescription.trim() || undefined);
+      setNewListName('');
+      setNewListDescription('');
+      setShowCreateList(false);
+    }
+  };
+
+  const handleAddToList = (recipe: Recipe) => {
+    // For demo, add to first list or show selection
+    if (userRecipeData.custom_lists.length > 0) {
+      addToList(userRecipeData.custom_lists[0].id, recipe.id);
+      alert(`Added "${recipe.name}" to "${userRecipeData.custom_lists[0].name}"!`);
+    } else {
+      alert('Create a list first!');
+    }
+  };
 
   const addToMealPlan = (recipe: Recipe, day: string, mealType: typeof mealTypes[number]) => {
     const newEntry: MealPlanEntry = {
@@ -121,12 +159,167 @@ export default function MealPlanPage() {
         </Button>
       </div>
 
-      <Tabs defaultValue="planner" className="space-y-6">
+      <Tabs defaultValue="recipes" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="recipes">My Recipes</TabsTrigger>
           <TabsTrigger value="planner">Weekly Planner</TabsTrigger>
-          <TabsTrigger value="nutrition">Nutrition Tracking</TabsTrigger>
-          <TabsTrigger value="grocery">Grocery List</TabsTrigger>
+          <TabsTrigger value="grocery">Shopping List</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="recipes" className="space-y-6">
+          {/* Favorites Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Heart className="h-5 w-5 text-red-600" />
+                <span>Favorite Recipes ({favoriteRecipes.length})</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {favoriteRecipes.length === 0 ? (
+                <div className="text-center py-8">
+                  <Heart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-500">No favorite recipes yet. Heart some recipes to see them here!</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {favoriteRecipes.map(recipe => (
+                    <RecipeCard
+                      key={recipe.id}
+                      recipe={recipe}
+                      isFavorite={true}
+                      onToggleFavorite={(recipe) => toggleFavorite(recipe.id)}
+                      onAddToList={handleAddToList}
+                      onAddToMealPlan={(recipe: Recipe) => {
+                        // Simple add to Monday breakfast for demo
+                        addToMealPlan(recipe, 'Monday', 'breakfast');
+                        alert(`Added "${recipe.name}" to Monday breakfast!`);
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Custom Lists Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <BookOpen className="h-5 w-5 text-blue-600" />
+                  <span>My Recipe Lists ({userRecipeData.custom_lists.length})</span>
+                </div>
+                <Button onClick={() => setShowCreateList(true)} size="sm">
+                  <Plus className="h-4 w-4 mr-2" />
+                  New List
+                </Button>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {showCreateList && (
+                <Card className="border-2 border-dashed border-gray-300">
+                  <CardContent className="p-4 space-y-3">
+                    <div>
+                      <Label htmlFor="listName">List Name</Label>
+                      <Input
+                        id="listName"
+                        value={newListName}
+                        onChange={(e) => setNewListName(e.target.value)}
+                        placeholder="e.g., Quick Weeknight Meals"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="listDescription">Description (optional)</Label>
+                      <Input
+                        id="listDescription"
+                        value={newListDescription}
+                        onChange={(e) => setNewListDescription(e.target.value)}
+                        placeholder="e.g., Recipes that take 30 minutes or less"
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <Button onClick={handleCreateList} size="sm">
+                        Create List
+                      </Button>
+                      <Button onClick={() => setShowCreateList(false)} variant="outline" size="sm">
+                        Cancel
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {userRecipeData.custom_lists.length === 0 ? (
+                <div className="text-center py-8">
+                  <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-500">No custom lists yet. Create your first list to organize recipes!</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {userRecipeData.custom_lists.map(list => {
+                    const listRecipes = getRecipesInList(list.id, mockRecipes);
+                    return (
+                      <Card key={list.id} className="border-l-4 border-l-blue-500">
+                        <CardHeader className="pb-3">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <CardTitle className="text-lg">{list.name}</CardTitle>
+                              {list.description && (
+                                <p className="text-sm text-gray-600 mt-1">{list.description}</p>
+                              )}
+                              <p className="text-xs text-gray-500 mt-1">
+                                {listRecipes.length} recipe{listRecipes.length !== 1 ? 's' : ''}
+                              </p>
+                            </div>
+                            <Button
+                              onClick={() => deleteList(list.id)}
+                              variant="ghost"
+                              size="sm"
+                              className="text-red-600 hover:text-red-700"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          {listRecipes.length === 0 ? (
+                            <p className="text-gray-500 text-sm">No recipes in this list yet.</p>
+                          ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                              {listRecipes.map(recipe => (
+                                <div key={recipe.id} className="relative">
+                                  <RecipeCard
+                                    recipe={recipe}
+                                    isFavorite={isFavorite(recipe.id)}
+                                    onToggleFavorite={(recipe) => toggleFavorite(recipe.id)}
+                                    onAddToMealPlan={(recipe: Recipe) => {
+                                      addToMealPlan(recipe, 'Monday', 'breakfast');
+                                      alert(`Added "${recipe.name}" to Monday breakfast!`);
+                                    }}
+                                    showAddButton={false}
+                                  />
+                                  <Button
+                                    onClick={() => removeFromList(list.id, recipe.id)}
+                                    variant="ghost"
+                                    size="sm"
+                                    className="absolute top-2 right-2 h-6 w-6 p-0 bg-white/90 hover:bg-white text-red-600"
+                                  >
+                                    <Trash2 className="h-3 w-3" />
+                                  </Button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         <TabsContent value="planner" className="space-y-6">
           {/* Quick Add Section */}
@@ -136,7 +329,7 @@ export default function MealPlanPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {recommendedRecipes.slice(0, 3).map(recipe => (
+                {favoriteRecipes.slice(0, 3).map((recipe: Recipe) => (
                   <div key={recipe.id} className="relative">
                     <RecipeCard recipe={recipe} showAddButton={false} />
                     <div className="absolute bottom-2 right-2">

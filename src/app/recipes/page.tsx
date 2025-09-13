@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RecipeCard } from '@/components/RecipeCard';
+import { useRecipes } from '@/contexts/RecipeContext';
 import { mockRecipes } from '@/lib/mockData';
 import { Recipe } from '@/types';
 import { Search, Filter, ChefHat } from 'lucide-react';
@@ -18,6 +19,8 @@ export default function RecipesPage() {
   const [selectedMealType, setSelectedMealType] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [maxTime, setMaxTime] = useState<string>('all');
+
+  const { toggleFavorite, isFavorite, userRecipeData, addToList } = useRecipes();
 
   // Get unique values for filters
   const cuisines = Array.from(new Set(recipes.flatMap(r => r.tags.cuisine_region)));
@@ -55,10 +58,17 @@ export default function RecipesPage() {
   };
 
   const handleAddToMealPlan = (recipe: Recipe) => {
-    // This would typically add to a global state or make an API call
     console.log('Adding to meal plan:', recipe.name);
-    // For now, just show an alert
     alert(`Added "${recipe.name}" to meal plan!`);
+  };
+
+  const handleAddToList = (recipe: Recipe) => {
+    if (userRecipeData.custom_lists.length > 0) {
+      addToList(userRecipeData.custom_lists[0].id, recipe.id);
+      alert(`Added "${recipe.name}" to "${userRecipeData.custom_lists[0].name}"!`);
+    } else {
+      alert('Create a list first in the Meal Plan section!');
+    }
   };
 
   return (
@@ -199,6 +209,9 @@ export default function RecipesPage() {
             <RecipeCard
               key={recipe.id}
               recipe={recipe}
+              isFavorite={isFavorite(recipe.id)}
+              onToggleFavorite={(recipe) => toggleFavorite(recipe.id)}
+              onAddToList={handleAddToList}
               onAddToMealPlan={handleAddToMealPlan}
             />
           ))}

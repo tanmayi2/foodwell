@@ -10,15 +10,17 @@ import {
   ChefHat, 
   Heart, 
   Calendar,
-  ShoppingCart 
+  ShoppingCart,
+  User
 } from 'lucide-react';
 
 const navigationItems = [
   { name: 'Home', href: '/', icon: Home },
   { name: 'My Fridge', href: '/fridge', icon: Refrigerator },
   { name: 'Recipes', href: '/recipes', icon: ChefHat },
-  { name: 'Recommendations', href: '/recommendations', icon: Heart },
+  { name: 'Recs', href: '/recommendations', icon: Heart },
   { name: 'Meal Plan', href: '/meal-plan', icon: Calendar },
+  { name: 'Profile', href: '/profile', icon: User },
 ];
 
 export function Navigation() {

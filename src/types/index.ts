@@ -112,6 +112,22 @@ export interface GroceryList {
   generated_at: string;
 }
 
+// Recipe lists and favorites
+export interface RecipeList {
+  id: string;
+  name: string;
+  description?: string;
+  recipe_ids: number[];
+  created_at: string;
+  user_id: number;
+}
+
+export interface UserRecipeData {
+  user_id: number;
+  favorites: number[];
+  custom_lists: RecipeList[];
+}
+
 // API response types
 export interface ApiResponse<T> {
   data: T;

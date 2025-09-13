@@ -1,4 +1,4 @@
-import { User, Recipe, Fridge } from '@/types';
+import { User, Recipe, Fridge, UserRecipeData, RecipeList } from '@/types';
 
 export const mockUser: User = {
   id: 1,
@@ -201,6 +201,30 @@ export const mockRecipes: Recipe[] = [
     time_minutes: 10
   }
 ];
+
+// Mock user recipe data
+export const mockUserRecipeData: UserRecipeData = {
+  user_id: 1,
+  favorites: [302, 303], // Vegetarian Fried Rice and Mediterranean Quinoa Bowl
+  custom_lists: [
+    {
+      id: "list-1",
+      name: "Quick Meals",
+      description: "Recipes that take 20 minutes or less",
+      recipe_ids: [302, 305],
+      created_at: "2024-01-15T10:00:00Z",
+      user_id: 1
+    },
+    {
+      id: "list-2", 
+      name: "Healthy Options",
+      description: "Low calorie, high nutrition recipes",
+      recipe_ids: [303, 304],
+      created_at: "2024-01-20T14:30:00Z",
+      user_id: 1
+    }
+  ]
+};
 
 // Filter recipes that match user preferences (no allergies, dietary restrictions)
 export const getRecommendedRecipes = (user: User, recipes: Recipe[]): Recipe[] => {
