@@ -1,46 +1,44 @@
-import { User, Recipe, Fridge, UserRecipeData, RecipeList } from '@/types';
+import { User, Recipe, Fridge, MealPlanEntry, GroceryItem, UserRecipeData } from '@/types';
+import { DietaryRestriction, Allergen, Priority, Cuisine, MealType, DifficultyLevel, CookingMethod, Unit } from '@/lib/enums';
 
 export const mockUser: User = {
   id: 1,
   name: "Jaansi",
-  dietary_restrictions: ["vegetarian"],
-  allergies: ["peanuts"],
+  email: "jaansi@example.com",
+  dietary_restrictions: [DietaryRestriction.VEGETARIAN],
+  allergies: [Allergen.PEANUTS],
   macro_targets: {
     calories: 2000,
     protein_g: 90,
     carbs_g: 220,
-    fat_g: 70,
-    fiber_g: 30
+    fat_g: 67,
+    fiber_g: 25
   },
-  liked_cuisines: ["asian", "mediterranean"],
-  liked_ingredients: ["cheese", "spinach", "tofu"],
-  disliked_cuisines: ["mexican"],
-  disliked_ingredients: ["broccoli", "mushrooms"],
-  liked_flavor_profile: ["savory", "spicy"],
-  priorities: {
-    budget: "medium",
-    health: "high",
-    convenience: "medium"
-  },
-  address: "50 Rogers St",
-  city: "Cambridge",
-  state: "MA",
-  zip: "02139"
+  liked_cuisines: [Cuisine.CHINESE, Cuisine.MEDITERRANEAN],
+  liked_ingredients: ["tofu", "quinoa", "spinach"],
+  disliked_cuisines: [Cuisine.MEXICAN],
+  disliked_ingredients: ["mushrooms"],
+  liked_flavor_profile: ["spicy", "umami"],
+  priorities: [Priority.HEALTH, Priority.SUSTAINABILITY],
+  address: "123 Main St",
+  city: "San Francisco",
+  state: "CA",
+  zip: "94102"
 };
 
 export const mockFridge: Fridge = {
   id: 1,
   items: [
-    { name: "eggs", quantity: 6, unit: "pcs" },
-    { name: "milk", quantity: 1, unit: "liter" },
-    { name: "cheddar cheese", quantity: 200, unit: "grams" },
-    { name: "spinach", quantity: 100, unit: "grams" },
-    { name: "tofu", quantity: 300, unit: "grams" },
-    { name: "rice", quantity: 500, unit: "grams" },
-    { name: "olive oil", quantity: 250, unit: "ml" },
-    { name: "garlic", quantity: 3, unit: "cloves" },
-    { name: "onion", quantity: 2, unit: "pcs" },
-    { name: "tomatoes", quantity: 4, unit: "pcs" }
+    { name: "eggs", quantity: 6, unit: Unit.PIECE },
+    { name: "milk", quantity: 1, unit: Unit.LITER },
+    { name: "cheddar cheese", quantity: 200, unit: Unit.GRAM },
+    { name: "Pasta", quantity: 200, unit: Unit.GRAM },
+    { name: "Tomatoes", quantity: 3, unit: Unit.PIECE },
+    { name: "Mozzarella", quantity: 150, unit: Unit.GRAM },
+    { name: "Basil", quantity: 10, unit: Unit.GRAM },
+    { name: "Garlic", quantity: 2, unit: Unit.CLOVE },
+    { name: "Olive Oil", quantity: 2, unit: Unit.TABLESPOON },
+    { name: "Salt", quantity: 1, unit: Unit.TEASPOON }
   ]
 };
 
@@ -50,21 +48,21 @@ export const mockRecipes: Recipe[] = [
     name: "Spaghetti Carbonara",
     num_servings: 2,
     ingredients: [
-      { name: "spaghetti", quantity: 200, unit: "grams" },
-      { name: "pancetta", quantity: 100, unit: "grams" },
-      { name: "egg yolks", quantity: 2, unit: "pcs" },
-      { name: "parmesan cheese", quantity: 50, unit: "grams" },
-      { name: "garlic", quantity: 1, unit: "clove" },
-      { name: "olive oil", quantity: 1, unit: "tbsp" },
-      { name: "black pepper", quantity: 1, unit: "tsp" }
+      { name: "spaghetti", quantity: 200, unit: Unit.GRAM },
+      { name: "bacon", quantity: 100, unit: Unit.GRAM },
+      { name: "egg yolks", quantity: 2, unit: Unit.PIECE },
+      { name: "parmesan cheese", quantity: 50, unit: Unit.GRAM },
+      { name: "garlic", quantity: 1, unit: Unit.CLOVE },
+      { name: "olive oil", quantity: 1, unit: Unit.TABLESPOON },
+      { name: "black pepper", quantity: 1, unit: Unit.TEASPOON }
     ],
     tags: {
-      meal_type: ["Lunch", "Dinner"],
-      cuisine_region: ["Italian"],
+      meal_type: [MealType.LUNCH, MealType.DINNER],
+      cuisine_region: [Cuisine.ITALIAN],
       dietary_preferences: [],
-      difficulty_level: ["Medium"]
+      difficulty_level: [DifficultyLevel.INTERMEDIATE]
     },
-    cooking_method: ["Boiling", "Frying"],
+    cooking_method: [CookingMethod.BOILING, CookingMethod.FRYING],
     equipment_needed: ["Pot", "Frying Pan", "Mixing Bowl", "Tongs"],
     flavor_profile: ["Savory", "Umami"],
     macros: {
@@ -75,28 +73,29 @@ export const mockRecipes: Recipe[] = [
       fiber_g: 3
     },
     time_minutes: 25,
-    url: "https://www.bbcgoodfood.com/recipes/ultimate-spaghetti-carbonara-recipe"
+    url: "https://example.com/carbonara",
+    thumbnail: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400"
   },
   {
     id: 302,
-    name: "Vegetarian Fried Rice",
+    name: "Vegetable Fried Rice",
     num_servings: 3,
     ingredients: [
-      { name: "rice", quantity: 200, unit: "grams" },
-      { name: "eggs", quantity: 2, unit: "pcs" },
-      { name: "mixed vegetables", quantity: 150, unit: "grams" },
-      { name: "soy sauce", quantity: 2, unit: "tbsp" },
-      { name: "garlic", quantity: 2, unit: "cloves" },
-      { name: "ginger", quantity: 1, unit: "tsp" },
-      { name: "sesame oil", quantity: 1, unit: "tbsp" }
+      { name: "rice", quantity: 200, unit: Unit.GRAM },
+      { name: "eggs", quantity: 2, unit: Unit.PIECE },
+      { name: "mixed vegetables", quantity: 150, unit: Unit.GRAM },
+      { name: "soy sauce", quantity: 2, unit: Unit.TABLESPOON },
+      { name: "garlic", quantity: 2, unit: Unit.CLOVE },
+      { name: "ginger", quantity: 1, unit: Unit.TEASPOON },
+      { name: "sesame oil", quantity: 1, unit: Unit.TABLESPOON }
     ],
     tags: {
-      meal_type: ["Lunch", "Dinner"],
-      cuisine_region: ["Asian"],
-      dietary_preferences: ["Vegetarian"],
-      difficulty_level: ["Easy"]
+      meal_type: [MealType.LUNCH, MealType.DINNER],
+      cuisine_region: [Cuisine.CHINESE],
+      dietary_preferences: [DietaryRestriction.VEGETARIAN],
+      difficulty_level: [DifficultyLevel.EASY]
     },
-    cooking_method: ["Stir-frying"],
+    cooking_method: [CookingMethod.FRYING],
     equipment_needed: ["Wok", "Rice Cooker"],
     flavor_profile: ["Savory", "Umami"],
     macros: {
@@ -106,161 +105,189 @@ export const mockRecipes: Recipe[] = [
       fat_g: 12,
       fiber_g: 4
     },
-    time_minutes: 20
+    time_minutes: 20,
+    url: "https://example.com/fried-rice",
+    thumbnail: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400"
   },
   {
     id: 303,
     name: "Mediterranean Quinoa Bowl",
     num_servings: 2,
     ingredients: [
-      { name: "quinoa", quantity: 150, unit: "grams" },
-      { name: "cucumber", quantity: 1, unit: "pcs" },
-      { name: "cherry tomatoes", quantity: 200, unit: "grams" },
-      { name: "feta cheese", quantity: 100, unit: "grams" },
-      { name: "olives", quantity: 50, unit: "grams" },
-      { name: "olive oil", quantity: 2, unit: "tbsp" },
-      { name: "lemon juice", quantity: 1, unit: "tbsp" }
+      { name: "quinoa", quantity: 150, unit: Unit.GRAM },
+      { name: "cherry tomatoes", quantity: 200, unit: Unit.GRAM },
+      { name: "cucumber", quantity: 1, unit: Unit.PIECE },
+      { name: "feta cheese", quantity: 100, unit: Unit.GRAM },
+      { name: "olives", quantity: 50, unit: Unit.GRAM },
+      { name: "olive oil", quantity: 2, unit: Unit.TABLESPOON },
+      { name: "lemon juice", quantity: 1, unit: Unit.TABLESPOON }
     ],
     tags: {
-      meal_type: ["Lunch", "Dinner"],
-      cuisine_region: ["Mediterranean"],
-      dietary_preferences: ["Vegetarian", "Gluten-Free"],
-      difficulty_level: ["Easy"]
+      meal_type: [MealType.LUNCH, MealType.DINNER],
+      cuisine_region: [Cuisine.MEDITERRANEAN],
+      dietary_preferences: [DietaryRestriction.VEGETARIAN, DietaryRestriction.GLUTEN_FREE],
+      difficulty_level: [DifficultyLevel.EASY]
     },
-    cooking_method: ["Boiling"],
+    cooking_method: [CookingMethod.BOILING],
     equipment_needed: ["Pot", "Mixing Bowl"],
     flavor_profile: ["Fresh", "Tangy"],
     macros: {
       calories: 380,
-      protein_g: 18,
+      protein_g: 16,
       carbs_g: 45,
-      fat_g: 16,
-      fiber_g: 8
+      fat_g: 18,
+      fiber_g: 6
     },
-    time_minutes: 15
+    time_minutes: 15,
+    url: "https://example.com/quinoa-bowl",
+    thumbnail: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400"
   },
   {
     id: 304,
-    name: "Spicy Tofu Stir Fry",
+    name: "Asian Tofu Stir Fry",
     num_servings: 2,
     ingredients: [
-      { name: "tofu", quantity: 200, unit: "grams" },
-      { name: "bell peppers", quantity: 150, unit: "grams" },
-      { name: "broccoli", quantity: 100, unit: "grams" },
-      { name: "soy sauce", quantity: 2, unit: "tbsp" },
-      { name: "chili sauce", quantity: 1, unit: "tbsp" },
-      { name: "garlic", quantity: 2, unit: "cloves" },
-      { name: "vegetable oil", quantity: 1, unit: "tbsp" }
+      { name: "tofu", quantity: 200, unit: Unit.GRAM },
+      { name: "broccoli", quantity: 150, unit: Unit.GRAM },
+      { name: "bell peppers", quantity: 100, unit: Unit.GRAM },
+      { name: "soy sauce", quantity: 2, unit: Unit.TABLESPOON },
+      { name: "garlic", quantity: 2, unit: Unit.CLOVE },
+      { name: "ginger", quantity: 1, unit: Unit.TEASPOON },
+      { name: "sesame oil", quantity: 1, unit: Unit.TABLESPOON }
     ],
     tags: {
-      meal_type: ["Lunch", "Dinner"],
-      cuisine_region: ["Asian"],
-      dietary_preferences: ["Vegetarian", "Vegan"],
-      difficulty_level: ["Easy"]
+      meal_type: [MealType.LUNCH, MealType.DINNER],
+      cuisine_region: [Cuisine.CHINESE],
+      dietary_preferences: [DietaryRestriction.VEGETARIAN, DietaryRestriction.VEGAN],
+      difficulty_level: [DifficultyLevel.EASY]
     },
-    cooking_method: ["Stir-frying"],
+    cooking_method: [CookingMethod.FRYING],
     equipment_needed: ["Wok", "Cutting Board"],
-    flavor_profile: ["Spicy", "Savory"],
+    flavor_profile: ["Savory", "Umami"],
     macros: {
-      calories: 290,
-      protein_g: 22,
-      carbs_g: 18,
-      fat_g: 15,
-      fiber_g: 6
+      calories: 320,
+      protein_g: 20,
+      carbs_g: 15,
+      fat_g: 22,
+      fiber_g: 8
     },
-    time_minutes: 18
+    time_minutes: 15,
+    url: "https://example.com/tofu-stir-fry",
+    thumbnail: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400"
   },
   {
     id: 305,
-    name: "Cheese Spinach Omelet",
-    num_servings: 1,
+    name: "French Toast",
+    num_servings: 2,
     ingredients: [
-      { name: "eggs", quantity: 3, unit: "pcs" },
-      { name: "spinach", quantity: 50, unit: "grams" },
-      { name: "cheddar cheese", quantity: 30, unit: "grams" },
-      { name: "butter", quantity: 1, unit: "tbsp" },
-      { name: "salt", quantity: 0.5, unit: "tsp" },
-      { name: "black pepper", quantity: 0.25, unit: "tsp" }
+      { name: "bread slices", quantity: 4, unit: Unit.PIECE },
+      { name: "eggs", quantity: 2, unit: Unit.PIECE },
+      { name: "milk", quantity: 60, unit: Unit.MILLILITER },
+      { name: "butter", quantity: 1, unit: Unit.TABLESPOON },
+      { name: "cinnamon", quantity: 1, unit: Unit.TEASPOON },
+      { name: "vanilla extract", quantity: 1, unit: Unit.TEASPOON }
     ],
     tags: {
-      meal_type: ["Breakfast", "Lunch"],
-      cuisine_region: ["French"],
-      dietary_preferences: ["Vegetarian"],
-      difficulty_level: ["Easy"]
+      meal_type: [MealType.BREAKFAST, MealType.BRUNCH],
+      cuisine_region: [Cuisine.FRENCH],
+      dietary_preferences: [DietaryRestriction.VEGETARIAN],
+      difficulty_level: [DifficultyLevel.EASY]
     },
-    cooking_method: ["Pan-frying"],
-    equipment_needed: ["Non-stick Pan", "Spatula"],
-    flavor_profile: ["Savory", "Creamy"],
+    cooking_method: [CookingMethod.FRYING],
+    equipment_needed: ["Frying Pan", "Mixing Bowl", "Whisk"],
+    flavor_profile: ["Sweet", "Rich"],
     macros: {
-      calories: 320,
-      protein_g: 24,
-      carbs_g: 4,
-      fat_g: 23,
+      calories: 280,
+      protein_g: 12,
+      carbs_g: 32,
+      fat_g: 12,
       fiber_g: 2
     },
-    time_minutes: 10
+    time_minutes: 10,
+    url: "https://example.com/french-toast",
+    thumbnail: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400"
   }
 ];
 
-// Mock user recipe data
+export const mockMealPlan: MealPlanEntry[] = [
+  {
+    id: "meal-1",
+    recipe: mockRecipes[0],
+    day: "Monday",
+    meal_type: "dinner",
+    servings: 2
+  },
+  {
+    id: "meal-2", 
+    recipe: mockRecipes[1],
+    day: "Tuesday",
+    meal_type: "lunch",
+    servings: 1
+  }
+];
+
+export const mockGroceryList: GroceryItem[] = [
+  { name: "spaghetti", quantity: 200, unit: Unit.GRAM },
+  { name: "bacon", quantity: 100, unit: Unit.GRAM },
+  { name: "eggs", quantity: 4, unit: Unit.PIECE },
+  { name: "parmesan cheese", quantity: 50, unit: Unit.GRAM },
+  { name: "rice", quantity: 200, unit: Unit.GRAM }
+];
+
+// Recommendation function (unchanged)
+export function getRecommendedRecipes(user: User, recipes: Recipe[]): Recipe[] {
+  return recipes.filter(recipe => {
+    // Check dietary restrictions
+    const hasRestrictedIngredient = user.dietary_restrictions.some(restriction => {
+      if (restriction === DietaryRestriction.VEGETARIAN) {
+        return recipe.ingredients.some(ing => 
+          ['beef', 'chicken', 'pork', 'fish', 'bacon'].includes(ing.name.toLowerCase())
+        );
+      }
+      return false;
+    });
+
+    if (hasRestrictedIngredient) return false;
+
+    // Check allergies
+    const hasAllergen = user.allergies.some(allergy => {
+      if (allergy === Allergen.PEANUTS) {
+        return recipe.ingredients.some(ing => ing.name.toLowerCase().includes('peanut'));
+      }
+      return false;
+    });
+
+    if (hasAllergen) return false;
+
+    // Prefer liked cuisines
+    const hasLikedCuisine = recipe.tags.cuisine_region.some(cuisine => 
+      user.liked_cuisines.includes(cuisine)
+    );
+
+    return hasLikedCuisine;
+  });
+}
+
+// User recipe data for favorites and custom lists
 export const mockUserRecipeData: UserRecipeData = {
   user_id: 1,
-  favorites: [302, 303], // Vegetarian Fried Rice and Mediterranean Quinoa Bowl
+  favorites: [301, 303],
   custom_lists: [
     {
       id: "list-1",
       name: "Quick Meals",
-      description: "Recipes that take 20 minutes or less",
-      recipe_ids: [302, 305],
+      description: "Fast and easy recipes for busy days",
+      recipe_ids: [302, 304],
       created_at: "2024-01-15T10:00:00Z",
       user_id: 1
     },
     {
       id: "list-2", 
       name: "Healthy Options",
-      description: "Low calorie, high nutrition recipes",
+      description: "Nutritious and balanced meals",
       recipe_ids: [303, 304],
-      created_at: "2024-01-20T14:30:00Z",
+      created_at: "2024-01-20T15:30:00Z",
       user_id: 1
     }
   ]
-};
-
-// Filter recipes that match user preferences (no allergies, dietary restrictions)
-export const getRecommendedRecipes = (user: User, recipes: Recipe[]): Recipe[] => {
-  return recipes.filter(recipe => {
-    // Check dietary restrictions
-    const isVegetarian = user.dietary_restrictions.includes('vegetarian');
-    if (isVegetarian) {
-      const hasVegetarianTag = recipe.tags.dietary_preferences.some(pref => 
-        pref.toLowerCase().includes('vegetarian') || pref.toLowerCase().includes('vegan')
-      );
-      // If user is vegetarian, only show vegetarian/vegan recipes or recipes without meat
-      if (!hasVegetarianTag && recipe.ingredients.some(ing => 
-        ['pancetta', 'bacon', 'chicken', 'beef', 'pork', 'fish'].some(meat => 
-          ing.name.toLowerCase().includes(meat)
-        )
-      )) {
-        return false;
-      }
-    }
-
-    // Check allergies
-    const hasAllergens = recipe.ingredients.some(ingredient =>
-      user.allergies.some(allergy => 
-        ingredient.name.toLowerCase().includes(allergy.toLowerCase())
-      )
-    );
-    if (hasAllergens) return false;
-
-    // Check disliked ingredients
-    const hasDislikedIngredients = recipe.ingredients.some(ingredient =>
-      user.disliked_ingredients.some(disliked => 
-        ingredient.name.toLowerCase().includes(disliked.toLowerCase())
-      )
-    );
-    if (hasDislikedIngredients) return false;
-
-    return true;
-  });
 };

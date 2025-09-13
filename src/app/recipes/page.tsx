@@ -10,6 +10,7 @@ import { RecipeCard } from '@/components/RecipeCard';
 import { useRecipes } from '@/contexts/RecipeContext';
 import { mockRecipes } from '@/lib/mockData';
 import { Recipe } from '@/types';
+import { getCuisines, getMealTypes, getDifficultyLevels, getDisplayName } from '@/lib/enums';
 import { Search, Filter, ChefHat } from 'lucide-react';
 
 export default function RecipesPage() {
@@ -22,10 +23,10 @@ export default function RecipesPage() {
 
   const { toggleFavorite, isFavorite, userRecipeData, addToList } = useRecipes();
 
-  // Get unique values for filters
-  const cuisines = Array.from(new Set(recipes.flatMap(r => r.tags.cuisine_region)));
-  const mealTypes = Array.from(new Set(recipes.flatMap(r => r.tags.meal_type)));
-  const difficulties = Array.from(new Set(recipes.flatMap(r => r.tags.difficulty_level)));
+  // Get enum values for filters
+  const cuisines = getCuisines();
+  const mealTypes = getMealTypes();
+  const difficulties = getDifficultyLevels();
 
   // Filter recipes based on search and filters
   const filteredRecipes = recipes.filter(recipe => {
@@ -33,13 +34,13 @@ export default function RecipesPage() {
                          recipe.ingredients.some(ing => ing.name.toLowerCase().includes(searchTerm.toLowerCase()));
     
     const matchesCuisine = selectedCuisine === 'all' || 
-                          recipe.tags.cuisine_region.includes(selectedCuisine);
+                          recipe.tags.cuisine_region.includes(selectedCuisine as any);
     
     const matchesMealType = selectedMealType === 'all' || 
-                           recipe.tags.meal_type.includes(selectedMealType);
+                           recipe.tags.meal_type.includes(selectedMealType as any);
     
     const matchesDifficulty = selectedDifficulty === 'all' || 
-                             recipe.tags.difficulty_level.includes(selectedDifficulty);
+                             recipe.tags.difficulty_level.includes(selectedDifficulty as any);
     
     const matchesTime = maxTime === 'all' || 
                        (maxTime === '15' && recipe.time_minutes <= 15) ||
@@ -105,7 +106,9 @@ export default function RecipesPage() {
               <SelectContent>
                 <SelectItem value="all">All Cuisines</SelectItem>
                 {cuisines.map(cuisine => (
-                  <SelectItem key={cuisine} value={cuisine}>{cuisine}</SelectItem>
+                  <SelectItem key={cuisine} value={cuisine} className="capitalize">
+                    {getDisplayName(cuisine)}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -117,7 +120,9 @@ export default function RecipesPage() {
               <SelectContent>
                 <SelectItem value="all">All Meals</SelectItem>
                 {mealTypes.map(mealType => (
-                  <SelectItem key={mealType} value={mealType}>{mealType}</SelectItem>
+                  <SelectItem key={mealType} value={mealType} className="capitalize">
+                    {getDisplayName(mealType)}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -129,7 +134,9 @@ export default function RecipesPage() {
               <SelectContent>
                 <SelectItem value="all">All Levels</SelectItem>
                 {difficulties.map(difficulty => (
-                  <SelectItem key={difficulty} value={difficulty}>{difficulty}</SelectItem>
+                  <SelectItem key={difficulty} value={difficulty} className="capitalize">
+                    {getDisplayName(difficulty)}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
