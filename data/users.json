@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "name": "Jaansi",
+    "email": "jaansi@example.com",
+    "dietary_restrictions": [
+      "vegetarian"
+    ],
+    "allergies": [
+      "peanuts",
+      "fish"
+    ],
+    "macro_targets": {
+      "calories": 2000,
+      "protein_g": 90,
+      "carbs_g": 220,
+      "fat_g": 67,
+      "fiber_g": 25
+    },
+    "liked_cuisines": [
+      "chinese",
+      "mediterranean"
+    ],
+    "liked_ingredients": [
+      "tofu",
+      "quinoa",
+      "spinach"
+    ],
+    "disliked_cuisines": [
+      "mexican"
+    ],
+    "disliked_ingredients": [
+      "mushrooms"
+    ],
+    "liked_flavor_profile": [
+      "spicy",
+      "umami"
+    ],
+    "priorities": [
+      "health",
+      "sustainability"
+    ],
+    "address": "123 Main St",
+    "city": "San Francisco",
+    "state": "CA",
+    "zip": "94102"
+  }
+]

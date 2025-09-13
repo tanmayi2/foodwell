@@ -1,0 +1,166 @@
+[
+  {
+    "id": 301,
+    "name": "Spaghetti Carbonara",
+    "num_servings": 2,
+    "ingredients": [
+      { "name": "spaghetti", "quantity": 200, "unit": "gram" },
+      { "name": "bacon", "quantity": 100, "unit": "gram" },
+      { "name": "egg yolks", "quantity": 2, "unit": "piece" },
+      { "name": "parmesan cheese", "quantity": 50, "unit": "gram" },
+      { "name": "garlic", "quantity": 1, "unit": "clove" },
+      { "name": "olive oil", "quantity": 1, "unit": "tablespoon" },
+      { "name": "black pepper", "quantity": 1, "unit": "teaspoon" }
+    ],
+    "tags": {
+      "meal_type": ["lunch", "dinner"],
+      "cuisine_region": ["italian"],
+      "dietary_preferences": [],
+      "difficulty_level": ["intermediate"]
+    },
+    "cooking_method": ["boiling", "frying"],
+    "equipment_needed": ["Pot", "Frying Pan", "Mixing Bowl", "Tongs"],
+    "flavor_profile": ["Savory", "Umami"],
+    "macros": {
+      "calories": 670,
+      "protein_g": 28,
+      "carbs_g": 72,
+      "fat_g": 28,
+      "fiber_g": 3
+    },
+    "time_minutes": 25,
+    "url": "https://example.com/carbonara",
+    "thumbnail": "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400"
+  },
+  {
+    "id": 302,
+    "name": "Vegetable Fried Rice",
+    "num_servings": 3,
+    "ingredients": [
+      { "name": "rice", "quantity": 200, "unit": "gram" },
+      { "name": "eggs", "quantity": 2, "unit": "piece" },
+      { "name": "mixed vegetables", "quantity": 150, "unit": "gram" },
+      { "name": "soy sauce", "quantity": 2, "unit": "tablespoon" },
+      { "name": "garlic", "quantity": 2, "unit": "clove" },
+      { "name": "ginger", "quantity": 1, "unit": "teaspoon" },
+      { "name": "sesame oil", "quantity": 1, "unit": "tablespoon" }
+    ],
+    "tags": {
+      "meal_type": ["lunch", "dinner"],
+      "cuisine_region": ["chinese"],
+      "dietary_preferences": ["vegetarian"],
+      "difficulty_level": ["easy"]
+    },
+    "cooking_method": ["frying"],
+    "equipment_needed": ["Wok", "Rice Cooker"],
+    "flavor_profile": ["Savory", "Umami"],
+    "macros": {
+      "calories": 420,
+      "protein_g": 15,
+      "carbs_g": 65,
+      "fat_g": 12,
+      "fiber_g": 4
+    },
+    "time_minutes": 20,
+    "url": "https://example.com/fried-rice",
+    "thumbnail": "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400"
+  },
+  {
+    "id": 303,
+    "name": "Mediterranean Quinoa Bowl",
+    "num_servings": 2,
+    "ingredients": [
+      { "name": "quinoa", "quantity": 150, "unit": "gram" },
+      { "name": "cherry tomatoes", "quantity": 200, "unit": "gram" },
+      { "name": "cucumber", "quantity": 1, "unit": "piece" },
+      { "name": "feta cheese", "quantity": 100, "unit": "gram" },
+      { "name": "olives", "quantity": 50, "unit": "gram" },
+      { "name": "olive oil", "quantity": 2, "unit": "tablespoon" },
+      { "name": "lemon juice", "quantity": 1, "unit": "tablespoon" }
+    ],
+    "tags": {
+      "meal_type": ["lunch", "dinner"],
+      "cuisine_region": ["mediterranean"],
+      "dietary_preferences": ["vegetarian", "gluten-free"],
+      "difficulty_level": ["easy"]
+    },
+    "cooking_method": ["boiling"],
+    "equipment_needed": ["Pot", "Mixing Bowl"],
+    "flavor_profile": ["Fresh", "Tangy"],
+    "macros": {
+      "calories": 380,
+      "protein_g": 16,
+      "carbs_g": 45,
+      "fat_g": 18,
+      "fiber_g": 6
+    },
+    "time_minutes": 15,
+    "url": "https://example.com/quinoa-bowl",
+    "thumbnail": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400"
+  },
+  {
+    "id": 304,
+    "name": "Asian Tofu Stir Fry",
+    "num_servings": 2,
+    "ingredients": [
+      { "name": "tofu", "quantity": 200, "unit": "gram" },
+      { "name": "broccoli", "quantity": 150, "unit": "gram" },
+      { "name": "bell peppers", "quantity": 100, "unit": "gram" },
+      { "name": "soy sauce", "quantity": 2, "unit": "tablespoon" },
+      { "name": "garlic", "quantity": 2, "unit": "clove" },
+      { "name": "ginger", "quantity": 1, "unit": "teaspoon" },
+      { "name": "sesame oil", "quantity": 1, "unit": "tablespoon" }
+    ],
+    "tags": {
+      "meal_type": ["lunch", "dinner"],
+      "cuisine_region": ["chinese"],
+      "dietary_preferences": ["vegetarian", "vegan"],
+      "difficulty_level": ["easy"]
+    },
+    "cooking_method": ["frying"],
+    "equipment_needed": ["Wok", "Cutting Board"],
+    "flavor_profile": ["Savory", "Umami"],
+    "macros": {
+      "calories": 320,
+      "protein_g": 20,
+      "carbs_g": 15,
+      "fat_g": 22,
+      "fiber_g": 8
+    },
+    "time_minutes": 15,
+    "url": "https://example.com/tofu-stir-fry",
+    "thumbnail": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400"
+  },
+  {
+    "id": 305,
+    "name": "French Toast",
+    "num_servings": 2,
+    "ingredients": [
+      { "name": "bread slices", "quantity": 4, "unit": "piece" },
+      { "name": "eggs", "quantity": 2, "unit": "piece" },
+      { "name": "milk", "quantity": 60, "unit": "milliliter" },
+      { "name": "butter", "quantity": 1, "unit": "tablespoon" },
+      { "name": "cinnamon", "quantity": 1, "unit": "teaspoon" },
+      { "name": "vanilla extract", "quantity": 1, "unit": "teaspoon" }
+    ],
+    "tags": {
+      "meal_type": ["breakfast", "brunch"],
+      "cuisine_region": ["french"],
+      "dietary_preferences": ["vegetarian"],
+      "difficulty_level": ["easy"]
+    },
+    "cooking_method": ["frying"],
+    "equipment_needed": ["Frying Pan", "Mixing Bowl", "Whisk"],
+    "flavor_profile": ["Sweet", "Rich"],
+    "macros": {
+      "calories": 280,
+      "protein_g": 12,
+      "carbs_g": 32,
+      "fat_g": 12,
+      "fiber_g": 2
+    },
+    "time_minutes": 10,
+    "url": "https://example.com/french-toast",
+    "thumbnail": "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400"
+  }
+]
