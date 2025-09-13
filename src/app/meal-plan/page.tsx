@@ -93,6 +93,23 @@ export default function MealPlanPage() {
     }, { calories: 0, protein_g: 0, carbs_g: 0, fat_g: 0, fiber_g: 0 });
   };
 
+  // Calculate macros for a specific day
+  const calculateDayMacros = (day: string) => {
+    const dayMeals = mealPlan.filter(entry => entry.day === day);
+    return dayMeals.reduce((totals, entry) => {
+      const recipe = entry.recipe;
+      const multiplier = entry.servings / recipe.num_servings;
+      
+      return {
+        calories: totals.calories + (recipe.macros.calories * multiplier),
+        protein_g: totals.protein_g + (recipe.macros.protein_g * multiplier),
+        carbs_g: totals.carbs_g + (recipe.macros.carbs_g * multiplier),
+        fat_g: totals.fat_g + (recipe.macros.fat_g * multiplier),
+        fiber_g: totals.fiber_g + (recipe.macros.fiber_g * multiplier)
+      };
+    }, { calories: 0, protein_g: 0, carbs_g: 0, fat_g: 0, fiber_g: 0 });
+  };
+
   // Calculate daily averages
   const totalMacros = calculateTotalMacros();
   const dailyAverages = {
@@ -321,103 +338,155 @@ export default function MealPlanPage() {
         </TabsContent>
 
         <TabsContent value="planner" className="space-y-6">
-          {/* Quick Add Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Add Recipes</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {favoriteRecipes.slice(0, 3).map((recipe: Recipe) => (
-                  <div key={recipe.id} className="relative">
-                    <RecipeCard recipe={recipe} showAddButton={false} />
-                    <div className="absolute bottom-2 right-2">
-                      <select 
-                        className="text-xs border rounded px-2 py-1"
-                        onChange={(e) => {
-                          const [day, mealType] = e.target.value.split('-');
-                          if (day && mealType) {
-                            addToMealPlan(recipe, day, mealType as typeof mealTypes[number]);
-                          }
-                        }}
-                        defaultValue=""
-                      >
-                        <option value="">Add to...</option>
-                        {daysOfWeek.map(day => 
-                          mealTypes.map(meal => (
-                            <option key={`${day}-${meal}`} value={`${day}-${meal}`}>
-                              {day} - {meal}
-                            </option>
-                          ))
-                        )}
-                      </select>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Weekly Calendar */}
-          <div className="grid grid-cols-1 lg:grid-cols-7 gap-4">
-            {daysOfWeek.map(day => (
-              <Card key={day} className="min-h-[400px]">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg">{day}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  {mealTypes.map(mealType => {
-                    const mealsForDayAndType = mealPlan.filter(
-                      entry => entry.day === day && entry.meal_type === mealType
-                    );
-                    
-                    return (
-                      <div key={mealType} className="space-y-2">
-                        <h4 className="font-medium text-sm capitalize text-gray-700">
-                          {mealType}
-                        </h4>
-                        {mealsForDayAndType.length === 0 ? (
-                          <div className="border-2 border-dashed border-gray-200 rounded-lg p-3 text-center">
-                            <Plus className="h-4 w-4 text-gray-400 mx-auto mb-1" />
-                            <p className="text-xs text-gray-400">Add meal</p>
-                          </div>
-                        ) : (
-                          mealsForDayAndType.map(entry => (
-                            <div key={entry.id} className="bg-gray-50 rounded-lg p-2 text-xs">
-                              <div className="flex justify-between items-start mb-1">
-                                <p className="font-medium">{entry.recipe.name}</p>
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  className="h-4 w-4 p-0"
-                                  onClick={() => removeFromMealPlan(entry.id)}
-                                >
-                                  ×
-                                </Button>
-                              </div>
-                              <div className="flex justify-between items-center">
-                                <p className="text-gray-600">
-                                  {Math.round((entry.recipe.macros.calories * entry.servings) / entry.recipe.num_servings)} cal
-                                </p>
-                                <select
-                                  value={entry.servings}
-                                  onChange={(e) => updateServings(entry.id, parseInt(e.target.value))}
-                                  className="text-xs border rounded px-1"
-                                >
-                                  {[1, 2, 3, 4].map(num => (
-                                    <option key={num} value={num}>{num} serving{num > 1 ? 's' : ''}</option>
-                                  ))}
-                                </select>
+          <div className="space-y-4">
+            {daysOfWeek.map(day => {
+              const dayMacros = calculateDayMacros(day);
+              return (
+                <div key={day} className="flex gap-4">
+                  <Card className="flex-1">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg">{day}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-4 gap-3">
+                        {mealTypes.map(mealType => {
+                          const mealsForDayAndType = mealPlan.filter(
+                            entry => entry.day === day && entry.meal_type === mealType
+                          );
+                          
+                          return (
+                            <div key={mealType} className="space-y-2">
+                              <h4 className="font-medium text-sm capitalize text-gray-700">
+                                {mealType}
+                              </h4>
+                              <div className="space-y-1">
+                                {mealsForDayAndType.map(entry => {
+                                  const adjustedMacros = {
+                                    calories: Math.round((entry.recipe.macros.calories * entry.servings) / entry.recipe.num_servings),
+                                    protein_g: Math.round((entry.recipe.macros.protein_g * entry.servings) / entry.recipe.num_servings),
+                                    carbs_g: Math.round((entry.recipe.macros.carbs_g * entry.servings) / entry.recipe.num_servings),
+                                    fat_g: Math.round((entry.recipe.macros.fat_g * entry.servings) / entry.recipe.num_servings),
+                                    fiber_g: Math.round((entry.recipe.macros.fiber_g * entry.servings) / entry.recipe.num_servings)
+                                  };
+                                  
+                                  return (
+                                    <div key={entry.id} className="bg-gray-50 rounded-lg p-2 text-xs">
+                                      <div className="flex justify-between items-start mb-1">
+                                        <p className="font-medium">{entry.recipe.name}</p>
+                                        <Button
+                                          size="sm"
+                                          variant="ghost"
+                                          className="h-4 w-4 p-0"
+                                          onClick={() => removeFromMealPlan(entry.id)}
+                                        >
+                                          ×
+                                        </Button>
+                                      </div>
+                                      <div className="space-y-1">
+                                        <div className="flex justify-between items-center">
+                                          <p className="text-gray-600">
+                                            {adjustedMacros.calories} cal
+                                          </p>
+                                          <input
+                                            type="number"
+                                            value={entry.servings}
+                                            onChange={(e) => updateServings(entry.id, parseInt(e.target.value) || 1)}
+                                            className="text-xs border rounded px-1 w-8 text-center"
+                                            min="1"
+                                            max="10"
+                                          />
+                                        </div>
+                                        <div className="text-xs text-gray-500 grid grid-cols-4 gap-1">
+                                          <span>P: {adjustedMacros.protein_g}g</span>
+                                          <span>C: {adjustedMacros.carbs_g}g</span>
+                                          <span>F: {adjustedMacros.fat_g}g</span>
+                                          <span>Fb: {adjustedMacros.fiber_g}g</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                                
+                                {/* Always show add meal option */}
+                                <div className="border-2 border-dashed border-gray-200 rounded-lg p-2">
+                                  <select 
+                                    className="w-full text-xs border-0 bg-transparent text-gray-500 focus:outline-none"
+                                    onChange={(e) => {
+                                      const recipeId = parseInt(e.target.value);
+                                      if (recipeId) {
+                                        const recipe = mockRecipes.find(r => r.id === recipeId);
+                                        if (recipe) {
+                                          addToMealPlan(recipe, day, mealType);
+                                        }
+                                      }
+                                      e.target.value = ""; // Reset selection
+                                    }}
+                                    defaultValue=""
+                                  >
+                                    <option value="">+ Add meal</option>
+                                    <optgroup label="Favorites">
+                                      {favoriteRecipes.map(recipe => (
+                                        <option key={`fav-${recipe.id}`} value={recipe.id}>
+                                          {recipe.name}
+                                        </option>
+                                      ))}
+                                    </optgroup>
+                                    {userRecipeData.custom_lists.map(list => {
+                                      const listRecipes = getRecipesInList(list.id, mockRecipes);
+                                      return listRecipes.length > 0 ? (
+                                        <optgroup key={list.id} label={list.name}>
+                                          {listRecipes.map(recipe => (
+                                            <option key={`${list.id}-${recipe.id}`} value={recipe.id}>
+                                              {recipe.name}
+                                            </option>
+                                          ))}
+                                        </optgroup>
+                                      ) : null;
+                                    })}
+                                  </select>
+                                </div>
                               </div>
                             </div>
-                          ))
-                        )}
+                          );
+                        })}
                       </div>
-                    );
-                  })}
-                </CardContent>
-              </Card>
-            ))}
+                    </CardContent>
+                  </Card>
+                  
+                  {/* Daily Macro Summary */}
+                  <Card className="w-64">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">Daily Totals</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                      <div className="text-center">
+                        <p className="text-lg font-bold text-orange-600">{Math.round(dayMacros.calories)}</p>
+                        <p className="text-xs text-gray-600">Calories</p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="text-center">
+                          <p className="font-semibold text-green-600">{Math.round(dayMacros.protein_g)}g</p>
+                          <p className="text-gray-600">Protein</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="font-semibold text-blue-600">{Math.round(dayMacros.carbs_g)}g</p>
+                          <p className="text-gray-600">Carbs</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="font-semibold text-yellow-600">{Math.round(dayMacros.fat_g)}g</p>
+                          <p className="text-gray-600">Fat</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="font-semibold text-purple-600">{Math.round(dayMacros.fiber_g)}g</p>
+                          <p className="text-gray-600">Fiber</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              );
+            })}
           </div>
         </TabsContent>
 

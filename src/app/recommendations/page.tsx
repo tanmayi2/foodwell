@@ -1,21 +1,74 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { RecipeCard } from '@/components/RecipeCard';
-import { mockUser, mockRecipes, getRecommendedRecipes } from '@/lib/mockData';
-import { Recipe } from '@/types';
+import { mockRecipes, getRecommendedRecipes } from '@/lib/mockData';
+import { Recipe, User } from '@/types';
 import { Heart, Star, TrendingUp, Clock } from 'lucide-react';
 
 export default function RecommendationsPage() {
-  const [user] = useState(mockUser);
-  const [recommendedRecipes] = useState<Recipe[]>(getRecommendedRecipes(mockUser, mockRecipes));
+  const [user, setUser] = useState<User | null>(null);
+  const [recommendedRecipes, setRecommendedRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/users/1');
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+        const userData = await response.json();
+        setUser(userData);
+        setRecommendedRecipes(getRecommendedRecipes(userData, mockRecipes));
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleAddToMealPlan = (recipe: Recipe) => {
     console.log('Adding to meal plan:', recipe.name);
     alert(`Added "${recipe.name}" to meal plan!`);
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your recommendations...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <p className="text-red-600 mb-2">Error loading recommendations</p>
+          <p className="text-gray-600">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <p className="text-gray-600">No user data available</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
