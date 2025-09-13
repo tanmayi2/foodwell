@@ -1,0 +1,34 @@
+{
+    "id": 301,
+    "name": "Spaghetti Carbonara",
+    "num_servings": 2,
+    "ingredients": [
+      { "name": "spaghetti", "quantity": 200, "unit": "grams" },
+      { "name": "pancetta", "quantity": 100, "unit": "grams" },
+      { "name": "egg yolks", "quantity": 2, "unit": "pcs" },
+      { "name": "parmesan cheese", "quantity": 50, "unit": "grams" },
+      { "name": "garlic", "quantity": 1, "unit": "clove" },
+      { "name": "olive oil", "quantity": 1, "unit": "tbsp" },
+      { "name": "black pepper", "quantity": 1, "unit": "tsp" }
+    ],
+    "tags": {
+      "meal_type": ["Lunch", "Dinner"],
+      "cuisine_region": ["Italian"],
+      "dietary_preferences": [],
+      "difficulty_level": ["Medium"]
+    },
+    "cooking_method": ["Boiling", "Frying"],
+    "equipment_needed": ["Pot", "Frying Pan", "Mixing Bowl", "Tongs"],
+    "flavor_profile": ["Savory", "Umami"],
+    "macros": {
+      "calories": 670,
+      "protein_g": 28,
+      "carbs_g": 72,
+      "fat_g": 28,
+      "fiber_g": 3
+    },
+    "time_minutes": 25,
+    "url": "https://www.bbcgoodfood.com/recipes/ultimate-spaghetti-carbonara-recipe",
+    "thumbnail": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/spaghetti-carbonara-dc6f7d3.jpg"
+  }
+  

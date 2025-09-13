@@ -1,0 +1,11 @@
+[
+    {
+      "id": 1,
+      "items": [
+        { "name": "eggs", "quantity": 6, "unit": "pcs" },
+        { "name": "milk", "quantity": 1, "unit": "liter" },
+        { "name": "cheddar cheese", "quantity": 200, "unit": "grams" },
+        { "name": "spinach", "quantity": 100, "unit": "grams" }
+      ]
+    }
+  ]

@@ -1,0 +1,30 @@
+[
+    {
+      "id": 1,
+      "name": "Jaansi",
+      "dietary_restrictions": ["vegetarian"],
+      "allergies": ["peanuts"],
+      "macro_targets": {
+        "calories": 2000,
+        "protein_g": 90,
+        "carbs_g": 220,
+        "fat_g": 70,
+        "fiber_g": 30
+      },
+      "liked_cuisines": ["asian", "mediterranean"],
+      "liked_ingredients": ["cheese", "spinach", "tofu"],
+      "disliked_cuisines": ["mexican"],
+      "disliked_ingredients": ["broccoli", "mushrooms"],
+      "liked_flavor_profile": ["savory", "spicy"],
+      "priorities": {
+        "budget": "medium",
+        "health": "high",
+        "convenience": "medium"
+      },
+      "address": "50 Rogers St",
+      "city": "Cambridge",
+      "state": "MA",
+      "zip": "02139"
+    }
+  ]
+  
