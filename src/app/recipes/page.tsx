@@ -218,7 +218,6 @@ export default function RecipesPage() {
               recipe={recipe}
               isFavorite={isFavorite(recipe.id)}
               onToggleFavorite={(recipe) => toggleFavorite(recipe.id)}
-              onAddToList={handleAddToList}
               onAddToMealPlan={handleAddToMealPlan}
             />
           ))}
