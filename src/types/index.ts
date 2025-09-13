@@ -1,3 +1,14 @@
+import {
+  Allergen,
+  CookingMethod,
+  Cuisine,
+  DietaryRestriction,
+  DifficultyLevel,
+  MealType,
+  Priority,
+  Unit,
+} from "@/lib/enums";
+
 // User-related types
 export interface MacroTargets {
   calories: number;
@@ -8,23 +19,24 @@ export interface MacroTargets {
 }
 
 export interface Priorities {
-  budget: 'low' | 'medium' | 'high';
-  health: 'low' | 'medium' | 'high';
-  convenience: 'low' | 'medium' | 'high';
+  budget: "low" | "medium" | "high";
+  health: "low" | "medium" | "high";
+  convenience: "low" | "medium" | "high";
 }
 
 export interface User {
   id: number;
   name: string;
-  dietary_restrictions: string[];
-  allergies: string[];
+  email: string;
+  dietary_restrictions: DietaryRestriction[];
+  allergies: Allergen[];
   macro_targets: MacroTargets;
-  liked_cuisines: string[];
+  liked_cuisines: Cuisine[];
   liked_ingredients: string[];
-  disliked_cuisines: string[];
+  disliked_cuisines: Cuisine[];
   disliked_ingredients: string[];
   liked_flavor_profile: string[];
-  priorities: Priorities;
+  priorities: Priority[];
   address: string;
   city: string;
   state: string;
@@ -47,14 +59,14 @@ export interface Fridge {
 export interface Ingredient {
   name: string;
   quantity: number;
-  unit: string;
+  unit: Unit;
 }
 
 export interface RecipeTags {
-  meal_type: string[];
-  cuisine_region: string[];
-  dietary_preferences: string[];
-  difficulty_level: string[];
+  meal_type: MealType[];
+  cuisine_region: Cuisine[];
+  dietary_preferences: DietaryRestriction[];
+  difficulty_level: DifficultyLevel[];
 }
 
 export interface RecipeMacros {
@@ -71,7 +83,7 @@ export interface Recipe {
   num_servings: number;
   ingredients: Ingredient[];
   tags: RecipeTags;
-  cooking_method: string[];
+  cooking_method: CookingMethod[];
   equipment_needed: string[];
   flavor_profile: string[];
   macros: RecipeMacros;
@@ -85,7 +97,7 @@ export interface MealPlanEntry {
   id: string;
   recipe: Recipe;
   day: string;
-  meal_type: 'breakfast' | 'lunch' | 'dinner' | 'snack';
+  meal_type: "breakfast" | "lunch" | "dinner" | "snack";
   servings: number;
 }
 
@@ -101,7 +113,6 @@ export interface GroceryItem {
   name: string;
   quantity: number;
   unit: string;
-  needed: boolean;
 }
 
 export interface GroceryList {
