@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SearchableSelect } from "@/components/ui/searchable-select";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -341,7 +342,7 @@ export default function ProfilePage() {
               )}
             </div>
             {isEditing && (
-              <Select
+              <SearchableSelect
                 onValueChange={(value) => {
                   if (
                     value &&
@@ -359,22 +360,16 @@ export default function ProfilePage() {
                     });
                   }
                 }}
-              >
-                <SelectTrigger className="w-full h-6">
-                  <SelectValue placeholder="Add restriction" />
-                </SelectTrigger>
-                <SelectContent className="max-h-48 overflow-y-auto">
-                  {getDietaryRestrictions()
-                    .filter(
-                      (r) => !currentUser.dietary_restrictions.includes(r)
-                    )
-                    .map((restriction) => (
-                      <SelectItem key={restriction} value={restriction}>
-                        {getDisplayName(restriction)}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+                placeholder="Search and add restriction..."
+                options={getDietaryRestrictions()
+                  .filter(
+                    (r) => !currentUser.dietary_restrictions.includes(r)
+                  )
+                  .map((restriction) => ({
+                    value: restriction,
+                    label: getDisplayName(restriction)
+                  }))}
+              />
             )}
           </div>
 
@@ -413,7 +408,7 @@ export default function ProfilePage() {
               )}
             </div>
             {isEditing && (
-              <Select
+              <SearchableSelect
                 onValueChange={(value) => {
                   if (
                     value &&
@@ -426,20 +421,14 @@ export default function ProfilePage() {
                     });
                   }
                 }}
-              >
-                <SelectTrigger className="w-full h-6">
-                  <SelectValue placeholder="Add allergy" />
-                </SelectTrigger>
-                <SelectContent className="max-h-48 overflow-y-auto">
-                  {getAllergens()
-                    .filter((a) => !currentUser.allergies.includes(a))
-                    .map((allergen) => (
-                      <SelectItem key={allergen} value={allergen}>
-                        {getDisplayName(allergen)}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+                placeholder="Search and add allergy..."
+                options={getAllergens()
+                  .filter((a) => !currentUser.allergies.includes(a))
+                  .map((allergen) => ({
+                    value: allergen,
+                    label: getDisplayName(allergen)
+                  }))}
+              />
             )}
           </div>
 
@@ -478,7 +467,7 @@ export default function ProfilePage() {
               )}
             </div>
             {isEditing && (
-              <Select
+              <SearchableSelect
                 onValueChange={(value) => {
                   if (
                     value &&
@@ -494,20 +483,14 @@ export default function ProfilePage() {
                     });
                   }
                 }}
-              >
-                <SelectTrigger className="w-full h-6">
-                  <SelectValue placeholder="Add cuisine" />
-                </SelectTrigger>
-                <SelectContent className="max-h-48 overflow-y-auto">
-                  {getCuisines()
-                    .filter((c) => !currentUser.liked_cuisines.includes(c))
-                    .map((cuisine) => (
-                      <SelectItem key={cuisine} value={cuisine}>
-                        {getDisplayName(cuisine)}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+                placeholder="Search and add cuisine..."
+                options={getCuisines()
+                  .filter((c) => !currentUser.liked_cuisines.includes(c))
+                  .map((cuisine) => ({
+                    value: cuisine,
+                    label: getDisplayName(cuisine)
+                  }))}
+              />
             )}
           </div>
 
@@ -546,7 +529,7 @@ export default function ProfilePage() {
               )}
             </div>
             {isEditing && (
-              <Select
+              <SearchableSelect
                 onValueChange={(value) => {
                   if (
                     value &&
@@ -562,20 +545,14 @@ export default function ProfilePage() {
                     });
                   }
                 }}
-              >
-                <SelectTrigger className="w-full h-6">
-                  <SelectValue placeholder="Add disliked cuisine" />
-                </SelectTrigger>
-                <SelectContent className="max-h-48 overflow-y-auto">
-                  {getCuisines()
-                    .filter((c) => !currentUser.disliked_cuisines.includes(c))
-                    .map((cuisine) => (
-                      <SelectItem key={cuisine} value={cuisine}>
-                        {getDisplayName(cuisine)}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+                placeholder="Search and add disliked cuisine..."
+                options={getCuisines()
+                  .filter((c) => !currentUser.disliked_cuisines.includes(c))
+                  .map((cuisine) => ({
+                    value: cuisine,
+                    label: getDisplayName(cuisine)
+                  }))}
+              />
             )}
           </div>
 
@@ -616,7 +593,7 @@ export default function ProfilePage() {
               )}
             </div>
             {isEditing && (
-              <Select
+              <SearchableSelect
                 onValueChange={(value) => {
                   if (
                     value &&
@@ -632,20 +609,14 @@ export default function ProfilePage() {
                     });
                   }
                 }}
-              >
-                <SelectTrigger className="w-full h-6">
-                  <SelectValue placeholder="Add ingredient" />
-                </SelectTrigger>
-                <SelectContent className="max-h-48 overflow-y-auto">
-                  {getIngredients()
-                    .filter((i) => !currentUser.liked_ingredients.includes(i))
-                    .map((ingredient) => (
-                      <SelectItem key={ingredient} value={ingredient}>
-                        {getDisplayName(ingredient)}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+                placeholder="Search and add ingredient..."
+                options={getIngredients()
+                  .filter((i) => !currentUser.liked_ingredients.includes(i))
+                  .map((ingredient) => ({
+                    value: ingredient,
+                    label: getDisplayName(ingredient)
+                  }))}
+              />
             )}
           </div>
 
@@ -687,7 +658,7 @@ export default function ProfilePage() {
               )}
             </div>
             {isEditing && (
-              <Select
+              <SearchableSelect
                 onValueChange={(value) => {
                   if (
                     value &&
@@ -703,20 +674,14 @@ export default function ProfilePage() {
                     });
                   }
                 }}
-              >
-                <SelectTrigger className="w-full h-6">
-                  <SelectValue placeholder="Add disliked ingredient" />
-                </SelectTrigger>
-                <SelectContent className="max-h-48 overflow-y-auto">
-                  {getIngredients()
-                    .filter((i) => !currentUser.disliked_ingredients.includes(i))
-                    .map((ingredient) => (
-                      <SelectItem key={ingredient} value={ingredient}>
-                        {getDisplayName(ingredient)}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+                placeholder="Search and add disliked ingredient..."
+                options={getIngredients()
+                  .filter((i) => !currentUser.disliked_ingredients.includes(i))
+                  .map((ingredient) => ({
+                    value: ingredient,
+                    label: getDisplayName(ingredient)
+                  }))}
+              />
             )}
           </div>
 
@@ -756,7 +721,7 @@ export default function ProfilePage() {
               )}
             </div>
             {isEditing && (
-              <Select
+              <SearchableSelect
                 onValueChange={(value) => {
                   if (
                     value &&
@@ -772,20 +737,14 @@ export default function ProfilePage() {
                     });
                   }
                 }}
-              >
-                <SelectTrigger className="w-full h-6">
-                  <SelectValue placeholder="Add flavor preference" />
-                </SelectTrigger>
-                <SelectContent className="max-h-48 overflow-y-auto">
-                  {getFlavorProfiles()
-                    .filter((f) => !currentUser.liked_flavor_profile.includes(f))
-                    .map((flavor) => (
-                      <SelectItem key={flavor} value={flavor}>
-                        {getDisplayName(flavor)}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+                placeholder="Search and add flavor preference..."
+                options={getFlavorProfiles()
+                  .filter((f) => !currentUser.liked_flavor_profile.includes(f))
+                  .map((flavor) => ({
+                    value: flavor,
+                    label: getDisplayName(flavor)
+                  }))}
+              />
             )}
           </div>
         </CardContent>
