@@ -189,7 +189,6 @@ export default function MealPlanPage() {
                       recipe={recipe}
                       isFavorite={true}
                       onToggleFavorite={(recipe) => toggleFavorite(recipe.id)}
-                      onAddToList={handleAddToList}
                       onAddToMealPlan={(recipe: Recipe) => {
                         // Simple add to Monday breakfast for demo
                         addToMealPlan(recipe, 'Monday', 'breakfast');

@@ -3,13 +3,14 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, Users, Flame, Plus, Heart, BookmarkPlus } from 'lucide-react';
+import { AddToListDialog } from './AddToListDialog';
 import Image from 'next/image';
+import { useState } from 'react';
 
 interface RecipeCardProps {
   recipe: Recipe;
   onAddToMealPlan?: (recipe: Recipe) => void;
   onToggleFavorite?: (recipe: Recipe) => void;
-  onAddToList?: (recipe: Recipe) => void;
   isFavorite?: boolean;
   showAddButton?: boolean;
 }
@@ -18,10 +19,10 @@ export function RecipeCard({
   recipe, 
   onAddToMealPlan, 
   onToggleFavorite,
-  onAddToList,
   isFavorite = false,
   showAddButton = true 
 }: RecipeCardProps) {
+  const [showAddToListDialog, setShowAddToListDialog] = useState(false);
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       {/* Recipe Image */}
@@ -55,16 +56,14 @@ export function RecipeCard({
               <Heart className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
             </Button>
           )}
-          {onAddToList && (
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-8 w-8 p-0 text-gray-400 bg-white/90 hover:bg-white"
-              onClick={() => onAddToList(recipe)}
-            >
-              <BookmarkPlus className="h-4 w-4" />
-            </Button>
-          )}
+          <Button
+            size="sm"
+            variant="ghost"
+            className="h-8 w-8 p-0 text-gray-400 bg-white/90 hover:bg-white"
+            onClick={() => setShowAddToListDialog(true)}
+          >
+            <BookmarkPlus className="h-4 w-4" />
+          </Button>
         </div>
       </div>
 
@@ -98,7 +97,7 @@ export function RecipeCard({
           {recipe.tags.difficulty_level.map((difficulty) => (
             <Badge 
               key={difficulty} 
-              variant={difficulty === 'Easy' ? 'default' : difficulty === 'Medium' ? 'secondary' : 'destructive'}
+              variant={difficulty === 'easy' ? 'default' : difficulty === 'intermediate' ? 'secondary' : 'destructive'}
               className="text-xs"
             >
               {difficulty}
@@ -165,6 +164,12 @@ export function RecipeCard({
           </div>
         )}
       </CardContent>
+      
+      <AddToListDialog
+        recipe={recipe}
+        open={showAddToListDialog}
+        onOpenChange={setShowAddToListDialog}
+      />
     </Card>
   );
 }
