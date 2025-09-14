@@ -412,18 +412,13 @@ export default function FridgePage() {
                           </Button>
                         </>
                       ) : (
-                        <>
-                          <Button 
-                            size="sm" 
-                            variant="outline"
-                            onClick={() => startEditing(index)}
-                          >
-                            <Edit2 className="h-3 w-3" />
-                          </Button>
-                          <Button size="sm" variant="outline">
-                            Use
-                          </Button>
-                        </>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => startEditing(index)}
+                        >
+                          <Edit2 className="h-3 w-3" />
+                        </Button>
                       )}
                     </div>
                   </div>
