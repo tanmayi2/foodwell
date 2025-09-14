@@ -3,19 +3,45 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { RecipeCard } from '@/components/RecipeCard';
 import { Recipe } from '@/types';
 import { 
   Bot, 
   Sparkles, 
   Loader2,
-  Calendar
+  Calendar,
+  ShoppingCart,
+  ArrowLeft
 } from 'lucide-react';
+
+interface IngredientInfo {
+  ingredient: string | null;
+  available: boolean | null;
+  price: number | null;
+  quantity: number | null;
+  unit: string | null;
+  url: string | null;
+  product_name: string | null;
+}
+
+interface StoreInfo {
+  store: string | null;
+  address: string | null;
+  ingredient_info: IngredientInfo[];
+}
+
+interface IngredientsResponse {
+  info: StoreInfo[];
+}
 
 export default function AgentPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [streamingResponse, setStreamingResponse] = useState('');
   const [weeklyMealPlan, setWeeklyMealPlan] = useState<{ [day: string]: { [mealType: string]: Recipe } }>({});
+  const [showIngredients, setShowIngredients] = useState(false);
+  const [ingredientsData, setIngredientsData] = useState<IngredientsResponse | null>(null);
+  const [ingredientsLoading, setIngredientsLoading] = useState(false);
 
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
@@ -77,7 +103,7 @@ export default function AgentPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: "Generate a full 7-day meal plan with 2 meals for a vegetarian.",
+          message: "Generate a full 5-day meal plan with 2 meals based on the user's profile. As a reminder please give ALL 5 days and nothing short.",
           userProfile: {
             id: 1,
             name: "Test User",
@@ -135,10 +161,193 @@ export default function AgentPage() {
     }
   };
 
+  // Convert meal plan to the format expected by ingredient agent
+  const convertMealPlanToIngredientFormat = () => {
+    const ingredientFormat: any[] = [];
+    
+    daysOfWeek.forEach((day, dayIndex) => {
+      const dayMeals = weeklyMealPlan[day];
+      if (dayMeals && Object.keys(dayMeals).length > 0) {
+        const dayPlan: any = {
+          day: dayIndex + 1
+        };
+        
+        Object.entries(dayMeals).forEach(([mealType, recipe]) => {
+          if (recipe) {
+            dayPlan[mealType] = {
+              id: recipe.id,
+              name: recipe.name,
+              num_servings: recipe.num_servings,
+              ingredients: recipe.ingredients.map(ingredient => ({
+                name: ingredient.name,
+                quantity: ingredient.quantity,
+                unit: ingredient.unit
+              })),
+              tags: recipe.tags,
+              cooking_method: recipe.cooking_method,
+              equipment_needed: recipe.equipment_needed,
+              flavor_profile: recipe.flavor_profile,
+              macros: {
+                calories: recipe.calories,
+                protein_g: recipe.protein_g,
+                carbs_g: recipe.carbs_g,
+                fat_g: recipe.fat_g,
+                fiber_g: recipe.fiber_g
+              },
+              time_minutes: recipe.time_minutes,
+              url: recipe.url,
+              thumbnail: recipe.thumbnail
+            };
+          }
+        });
+        
+        ingredientFormat.push(dayPlan);
+      }
+    });
+    
+    return ingredientFormat;
+  };
+
+  const getShoppingList = async () => {
+    setIngredientsLoading(true);
+    
+    try {
+      const mealPlanData = convertMealPlanToIngredientFormat();
+      console.log(mealPlanData);
+      
+      const response = await fetch('/api/toolhouse/ingredient-agent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(mealPlanData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get ingredients data');
+      }
+
+      const result = await response.json();
+      setIngredientsData(result);
+      setShowIngredients(true);
+      
+    } catch (error) {
+      console.error('Error getting ingredients:', error);
+      alert('Sorry, there was an error getting your shopping list. Please try again.');
+    } finally {
+      setIngredientsLoading(false);
+    }
+  };
+
   // Auto-generate meal plan on page load
   useEffect(() => {
     generateMealPlan();
   }, []);
+
+  // If showing ingredients, render ingredients view
+  if (showIngredients && ingredientsData) {
+    return (
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="text-center space-y-4">
+          <div className="flex items-center justify-center space-x-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowIngredients(false)}
+              className="absolute left-0"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Meal Plan
+            </Button>
+            <div className="rainbow-pulse p-3 rounded-full">
+              <ShoppingCart className="h-8 w-8" />
+            </div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Shopping List
+            </h1>
+            <Sparkles className="h-8 w-8 text-yellow-500" />
+          </div>
+          <p className="text-muted-foreground">Ingredients organized by store for your weekly meal plan</p>
+        </div>
+
+        {/* Ingredients List */}
+        <div className="space-y-6">
+          {ingredientsData.info.map((store, storeIndex) => (
+            <Card key={storeIndex} className="border-2 border-green-200">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-xl flex items-center gap-2">
+                  <Badge className="bg-green-600 text-white border-0">
+                    {store.store || `Store ${storeIndex + 1}`}
+                  </Badge>
+                </CardTitle>
+                {store.address && (
+                  <p className="text-sm text-muted-foreground">{store.address}</p>
+                )}
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {store.ingredient_info.map((ingredient, ingredientIndex) => (
+                    <Card key={ingredientIndex} className="p-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-medium text-sm">
+                            {ingredient.ingredient || 'Unknown ingredient'}
+                          </h4>
+                          <Badge 
+                            variant={ingredient.available ? "default" : "destructive"}
+                            className="text-xs"
+                          >
+                            {ingredient.available ? "Available" : "Out of Stock"}
+                          </Badge>
+                        </div>
+                        
+                        {ingredient.product_name && (
+                          <p className="text-xs text-muted-foreground">
+                            {ingredient.product_name}
+                          </p>
+                        )}
+                        
+                        <div className="flex items-center justify-between text-xs">
+                          <span>
+                            {(ingredient.quantity !== null && ingredient.quantity !== undefined) && 
+                             (ingredient.unit !== null && ingredient.unit !== undefined)
+                              ? `${ingredient.quantity} ${ingredient.unit}`
+                              : (ingredient.quantity !== null && ingredient.quantity !== undefined)
+                                ? `${ingredient.quantity}`
+                                : (ingredient.unit !== null && ingredient.unit !== undefined)
+                                  ? `${ingredient.unit}`
+                                  : 'No quantity specified'
+                            }
+                          </span>
+                          {ingredient.price && (
+                            <span className="font-medium text-green-600">
+                              ${ingredient.price.toFixed(2)}
+                            </span>
+                          )}
+                        </div>
+                        
+                        {ingredient.url && (
+                          <a
+                            href={ingredient.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-blue-600 hover:underline"
+                          >
+                            View Product
+                          </a>
+                        )}
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -234,6 +443,28 @@ export default function AgentPage() {
                 </Card>
               );
             })}
+          </div>
+
+          {/* Confirm Button */}
+          <div className="text-center pt-6">
+            <Button
+              onClick={getShoppingList}
+              disabled={ingredientsLoading}
+              size="lg"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3"
+            >
+              {ingredientsLoading ? (
+                <>
+                  <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                  Getting Shopping List...
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  Confirm & Get Shopping List
+                </>
+              )}
+            </Button>
           </div>
         </div>
       )}

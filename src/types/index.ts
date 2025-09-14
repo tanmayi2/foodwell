@@ -58,8 +58,8 @@ export interface Fridge {
 // Recipe-related types
 export interface Ingredient {
   name: string;
-  quantity: number;
-  unit: Unit;
+  quantity?: number | null;
+  unit?: Unit | null;
 }
 
 export interface RecipeTags {
