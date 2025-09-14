@@ -34,3 +34,29 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## Repo Structure
+
+``` bash
+src/
+├── app/                    # Next.js App Router pages
+│   ├── api/               # API routes
+│   ├── fridge/            # Fridge management page
+│   ├── recipes/           # Recipe library page
+│   ├── recommendations/   # Recipe recommendations
+│   ├── meal-plan/         # Meal planning & lists
+│   └── profile/           # User profile & preferences
+├── components/            # Reusable UI components
+│   ├── ui/               # Base UI components (buttons, cards, etc.)
+│   └── layout/           # Layout components (navigation, etc.)
+├── contexts/             # React contexts
+├── lib/                  # Utilities and enums
+└── types/               # TypeScript type definitions
+
+data/                     # JSON data files
+├── fridges.json         # Fridge inventory data
+├── recipes.json         # Recipe database
+├── users.json           # User profiles
+└── user-recipes.json    # User-specific recipe data
+```
