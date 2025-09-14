@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 import { 
   Home, 
   Refrigerator, 
@@ -11,7 +12,8 @@ import {
   Heart, 
   Calendar,
   ShoppingCart,
-  User
+  User,
+  LogOut
 } from 'lucide-react';
 
 const navigationItems = [
@@ -25,6 +27,7 @@ const navigationItems = [
 
 export function Navigation() {
   const pathname = usePathname();
+  const { user, loading, signOut } = useAuth();
 
   return (
     <nav className="bg-card border-b border-border shadow-sm">
@@ -58,6 +61,36 @@ export function Navigation() {
                 </Link>
               );
             })}
+            
+            {/* Authentication UI */}
+            {!loading && (
+              <>
+                {user ? (
+                  <div className="flex items-center space-x-2 ml-4">
+                    <span className="text-sm text-muted-foreground hidden sm:inline">
+                      {user.email}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={signOut}
+                      className="flex items-center space-x-1"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      <span className="hidden sm:inline">Sign Out</span>
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="ml-4">
+                    <Link href="/login">
+                      <Button variant="outline" size="sm">
+                        Sign In
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
