@@ -107,7 +107,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           message:
-            "Generate exactly 7 day meal plans (lunch + dinner only). Return as JSON array format: [{day: 1, lunch: {id, name, calories, time_minutes, ingredients, url, thumbnail}, dinner: {same format}}]. Keep responses concise.",
+            "Generate exactly 5 day meal plans (lunch + dinner only). Return as JSON array format: [{day: 1, lunch: {id, name, calories, time_minutes, ingredients, url, thumbnail}, dinner: {same format}}]. Keep responses concise.",
           userProfile,
         }),
         signal: controller.signal,
@@ -142,10 +142,42 @@ export default function Home() {
             // Look for JSON array or object in the response
             const jsonMatch = content.match(/\[[\s\S]*\]|\{[\s\S]*\}/);
             if (jsonMatch) {
-              parsedContent = JSON.parse(jsonMatch[0]);
+              try {
+                parsedContent = JSON.parse(jsonMatch[0]);
+              } catch (jsonError) {
+                console.error(
+                  "JSON parse error on matched content:",
+                  jsonError
+                );
+                console.error("Matched content:", jsonMatch[0]);
+                // Try to clean up common JSON issues
+                let cleanedJson = jsonMatch[0]
+                  .replace(/,(\s*[}\]])/g, "$1") // Remove trailing commas
+                  .replace(/([{,]\s*)(\w+):/g, '$1"$2":') // Quote unquoted keys
+                  .replace(/:\s*'([^']*)'/g, ': "$1"'); // Replace single quotes with double quotes
+
+                try {
+                  parsedContent = JSON.parse(cleanedJson);
+                  console.log("Successfully parsed cleaned JSON");
+                } catch (cleanupError) {
+                  console.error(
+                    "Failed to parse even after cleanup:",
+                    cleanupError
+                  );
+                  throw new Error("Invalid JSON format in agent response");
+                }
+              }
             } else {
               // If no JSON found, try parsing the entire content
-              parsedContent = JSON.parse(content);
+              try {
+                parsedContent = JSON.parse(content);
+              } catch (jsonError) {
+                console.error(
+                  "Failed to parse entire content as JSON:",
+                  jsonError
+                );
+                throw new Error("No valid JSON found in agent response");
+              }
             }
           } else {
             // Content is already parsed

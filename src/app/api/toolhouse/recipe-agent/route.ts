@@ -81,14 +81,9 @@ export async function callToolhouseAgent(message: string, runId?: string): Promi
 
   const responseRunId = response.headers.get('X-Toolhouse-Run-ID') || response.headers.get('x-toolhouse-run-id');
   
-  // Read response with extended timeout
+  // Read response without timeout
   const textStart = Date.now();
-  const content = await Promise.race([
-    response.text(),
-    new Promise<string>((_, reject) => 
-      setTimeout(() => reject(new Error('Response read timeout')), 120000)
-    )
-  ]);
+  const content = await response.text();
   console.log('Response text read in:', Date.now() - textStart + 'ms');
   console.log('Response length:', content.length, 'characters');
   
