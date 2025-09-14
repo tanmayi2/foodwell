@@ -203,7 +203,6 @@ export default function FridgePage() {
             <p className="text-muted-foreground">Manage your ingredients and track what you have</p>
           </div>
         </div>
-<<<<<<< HEAD
         <Dialog open={showAddModal} onOpenChange={setShowAddModal}>
           <DialogTrigger asChild>
             <Button className="bg-blue-600 hover:bg-blue-700">
@@ -277,12 +276,6 @@ export default function FridgePage() {
             </div>
           </DialogContent>
         </Dialog>
-=======
-        <Button className="bg-primary hover:bg-primary/90">
-          <Plus className="h-4 w-4 mr-2" />
-          Add Item
-        </Button>
->>>>>>> tanmayi/ui
       </div>
 
       {/* Stats */}
