@@ -23,16 +23,22 @@ export function RecipeCard({
   showAddButton = true 
 }: RecipeCardProps) {
   const [showAddToListDialog, setShowAddToListDialog] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       {/* Recipe Image */}
       <div className="relative h-48 bg-muted">
-        {recipe.thumbnail ? (
+        {recipe.thumbnail && !imageError ? (
           <Image
             src={recipe.thumbnail}
             alt={recipe.name}
             fill
             className="object-cover"
+            onError={() => setImageError(true)}
+            unoptimized={true}
+            referrerPolicy="no-referrer"
+            crossOrigin="anonymous"
           />
         ) : (
           <div className="flex items-center justify-center h-full bg-gradient-to-br from-amaranth-pink/20 to-bright-pink-crayola/20">
@@ -102,7 +108,7 @@ export function RecipeCard({
           <div className="flex items-center space-x-2">
             <Flame className="h-4 w-4 text-rusty-red" />
             <div>
-              <p className="text-sm font-medium">{recipe.macros.calories}</p>
+              <p className="text-sm font-medium">{recipe.calories}</p>
               <p className="text-xs text-muted-foreground">calories</p>
             </div>
           </div>
@@ -118,19 +124,19 @@ export function RecipeCard({
         {/* Detailed Macros */}
         <div className="grid grid-cols-4 gap-2 text-center">
           <div>
-            <p className="text-sm font-medium text-primary">{recipe.macros.protein_g}g</p>
+            <p className="text-sm font-medium text-primary">{recipe.protein_g}g</p>
             <p className="text-xs text-muted-foreground">Protein</p>
           </div>
           <div>
-            <p className="text-sm font-medium text-accent">{recipe.macros.carbs_g}g</p>
+            <p className="text-sm font-medium text-accent">{recipe.carbs_g}g</p>
             <p className="text-xs text-muted-foreground">Carbs</p>
           </div>
           <div>
-            <p className="text-sm font-medium text-secondary">{recipe.macros.fat_g}g</p>
+            <p className="text-sm font-medium text-secondary">{recipe.fat_g}g</p>
             <p className="text-xs text-muted-foreground">Fat</p>
           </div>
           <div>
-            <p className="text-sm font-medium" style={{color: 'var(--amaranth-pink)'}}>{recipe.macros.fiber_g}g</p>
+            <p className="text-sm font-medium" style={{color: 'var(--amaranth-pink)'}}>{recipe.fiber_g}g</p>
             <p className="text-xs text-muted-foreground">Fiber</p>
           </div>
         </div>

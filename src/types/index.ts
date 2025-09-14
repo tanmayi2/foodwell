@@ -86,7 +86,11 @@ export interface Recipe {
   cooking_method: CookingMethod[];
   equipment_needed: string[];
   flavor_profile: string[];
-  macros: RecipeMacros;
+  calories: number,
+  protein_g: number,
+  carbs_g: number,
+  fat_g: number,
+  fiber_g: number,
   time_minutes: number;
   url?: string;
   thumbnail?: string;

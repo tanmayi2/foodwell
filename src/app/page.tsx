@@ -115,14 +115,25 @@ export default function Home() {
           <h3 className="text-xl font-semibold text-foreground mb-2">
             Ready to start planning?
           </h3>
-          <p className="text-muted-foreground mb-4">
+          <p className="text-muted-foreground mb-6">
             Let&apos;s create your first meal plan and generate a shopping list.
           </p>
-          <Link href="/meal-plan">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
-              Start Meal Planning
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/meal-plan">
+              <Button size="lg" className="bg-primary hover:bg-primary/90">
+                Start Meal Planning
+              </Button>
+            </Link>
+            <span className="text-muted-foreground font-medium">or</span>
+            <Link href="/agent">
+              <Button 
+                size="lg" 
+                className="rainbow-pulse border-0 hover:scale-105 transition-transform"
+              >
+                SUPER AGENTIC MODE
+              </Button>
+            </Link>
+          </div>
         </CardContent>
       </Card>
     </div>

@@ -130,3 +130,40 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Rainbow pulsating animation for super agentic button */
+@keyframes rainbow-pulse {
+  0%, 100% {
+    background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  }
+  16.66% {
+    background: linear-gradient(45deg, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+    box-shadow: 0 0 20px rgba(255, 127, 0, 0.5);
+  }
+  33.33% {
+    background: linear-gradient(45deg, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000, #ff7f00);
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+  }
+  50% {
+    background: linear-gradient(45deg, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000, #ff7f00, #ffff00);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+  66.66% {
+    background: linear-gradient(45deg, #0000ff, #4b0082, #9400d3, #ff0000, #ff7f00, #ffff00, #00ff00);
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+  }
+  83.33% {
+    background: linear-gradient(45deg, #4b0082, #9400d3, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff);
+    box-shadow: 0 0 20px rgba(75, 0, 130, 0.5);
+  }
+}
+
+.rainbow-pulse {
+  animation: rainbow-pulse 2s ease-in-out infinite;
+  background-size: 200% 200%;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
