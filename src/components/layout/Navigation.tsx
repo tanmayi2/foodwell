@@ -27,13 +27,13 @@ export function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-white border-b border-gray-200 shadow-sm">
+    <nav className="bg-card border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <ShoppingCart className="h-8 w-8 text-green-600" />
-              <span className="text-xl font-bold text-gray-900">FoodWell</span>
+              <ShoppingCart className="h-8 w-8 text-primary" />
+              <span className="text-xl font-bold text-foreground">FoodWell</span>
             </Link>
           </div>
           
@@ -48,7 +48,8 @@ export function Navigation() {
                     variant={isActive ? "default" : "ghost"}
                     className={cn(
                       "flex items-center space-x-2 px-3 py-2",
-                      isActive && "bg-green-600 text-white hover:bg-green-700"
+                      isActive && "bg-primary text-primary-foreground hover:bg-primary/90",
+                      !isActive && "hover:bg-primary/10 hover:text-primary"
                     )}
                   >
                     <Icon className="h-4 w-4" />
