@@ -151,7 +151,7 @@ export default function Home() {
                 );
                 console.error("Matched content:", jsonMatch[0]);
                 // Try to clean up common JSON issues
-                let cleanedJson = jsonMatch[0]
+                const cleanedJson = jsonMatch[0]
                   .replace(/,(\s*[}\]])/g, "$1") // Remove trailing commas
                   .replace(/([{,]\s*)(\w+):/g, '$1"$2":') // Quote unquoted keys
                   .replace(/:\s*'([^']*)'/g, ': "$1"'); // Replace single quotes with double quotes
