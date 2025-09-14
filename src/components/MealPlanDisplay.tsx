@@ -81,23 +81,18 @@ function DayPlanCard({
         {/* Lunch Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border-l-4 border-blue-400 bg-blue-50/30 rounded-r-lg">
           <div className="md:col-span-1">
-            <div className="relative w-full h-32 rounded-lg overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-              {dayPlan.lunch.thumbnail ? (
-                <img
+            <div className="relative w-full h-32 rounded-lg overflow-hidden">
+              {dayPlan.lunch.thumbnail && (
+                <Image
                   src={dayPlan.lunch.thumbnail}
                   alt={dayPlan.lunch.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                   onError={(e) => {
                     console.log("Image failed to load:", dayPlan.lunch.thumbnail);
                     e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement!.innerHTML = '<div class="flex flex-col items-center justify-center text-blue-400 h-full"><svg class="h-8 w-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253M9 7h6m-6 4h6m-6 4h6m-6 4h6"></path></svg><span class="text-xs font-medium">Lunch</span></div>';
                   }}
                 />
-              ) : (
-                <div className="flex flex-col items-center justify-center text-blue-400">
-                  <ChefHat className="h-8 w-8 mb-1" />
-                  <span className="text-xs font-medium">Lunch</span>
-                </div>
               )}
             </div>
           </div>
@@ -133,23 +128,18 @@ function DayPlanCard({
         {/* Dinner Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border-l-4 border-orange-400 bg-orange-50/30 rounded-r-lg">
           <div className="md:col-span-1">
-            <div className="relative w-full h-32 rounded-lg overflow-hidden bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center">
-              {dayPlan.dinner.thumbnail ? (
-                <img
+            <div className="relative w-full h-32 rounded-lg overflow-hidden">
+              {dayPlan.dinner.thumbnail && (
+                <Image
                   src={dayPlan.dinner.thumbnail}
                   alt={dayPlan.dinner.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                   onError={(e) => {
                     console.log("Image failed to load:", dayPlan.dinner.thumbnail);
                     e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement!.innerHTML = '<div class="flex flex-col items-center justify-center text-orange-400 h-full"><svg class="h-8 w-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253M9 7h6m-6 4h6m-6 4h6m-6 4h6"></path></svg><span class="text-xs font-medium">Dinner</span></div>';
                   }}
                 />
-              ) : (
-                <div className="flex flex-col items-center justify-center text-orange-400">
-                  <ChefHat className="h-8 w-8 mb-1" />
-                  <span className="text-xs font-medium">Dinner</span>
-                </div>
               )}
             </div>
           </div>
