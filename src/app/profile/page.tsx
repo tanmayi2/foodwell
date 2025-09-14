@@ -757,15 +757,15 @@ export default function ProfilePage() {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {[
-              { key: "calories", label: "Calories", color: "text-orange-600" },
+              { key: "calories", label: "Calories", color: "text-primary" },
               {
                 key: "protein_g",
                 label: "Protein (g)",
-                color: "text-green-600",
+                color: "text-secondary",
               },
-              { key: "carbs_g", label: "Carbs (g)", color: "text-secondary" },
-              { key: "fat_g", label: "Fat (g)", color: "text-yellow-600" },
-              { key: "fiber_g", label: "Fiber (g)", color: "text-purple-600" },
+              { key: "carbs_g", label: "Carbs (g)", color: "text-accent" },
+              { key: "fat_g", label: "Fat (g)", color: "text-destructive" },
+              { key: "fiber_g", label: "Fiber (g)", color: "text-muted-foreground" },
             ].map((macro) => (
               <div key={macro.key} className="text-center space-y-2">
                 <Label className="text-sm">{macro.label}</Label>
