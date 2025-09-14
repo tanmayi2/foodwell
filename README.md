@@ -1,7 +1,7 @@
 # FoodWell: The AI-First Instacart
+[Video Demo](https://youtu.be/OcNjoTPtKyQ?si=QXaifWTh_xLXnltY) 
 
-
-## 🎯 The Challenge: Rebuilding Instacart for the AI Era
+## 🛒 The Challenge: Rebuilding Instacart for the AI Era
 
 What if Instacart was built today, from the ground up, with AI at its core? FoodWell is that answer—born from the daily struggles of college students trying to meal prep on a budget while juggling classes, work, and social life.
 
@@ -16,9 +16,9 @@ What if Instacart was built today, from the ground up, with AI at its core? Food
 
 **The Lightbulb Moment:** What if an AI could instantly know what's available at every store near you, suggest recipes based on your fridge contents, and optimize your entire shopping experience—all before you even leave your dorm?
 
-## 🚀 FoodWell: Instacart Reimagined with AI-First Thinking
+## FoodWell: Instacart Reimagined with AI-First Thinking
 
-### 🤖 Why AI-First Beats Traditional Instacart
+### Why AI-First Beats Traditional Instacart
 
 **Traditional Instacart:** You know what you want → You order it → It gets delivered
 **FoodWell:** AI knows what you need before you do → Optimizes everything → You eat better for less
@@ -82,12 +82,6 @@ Unlike Instacart's traditional marketplace model, FoodWell is built around intel
 ❌ **No meal planning intelligence** → We plan your entire week  
 ❌ **Doesn't prevent food waste** → We ensure every ingredient gets used  
 ❌ **No budget optimization** → We find the cheapest path to great meals  
-
-### The Market Opportunity:
-- **$150B+ grocery market** that Instacart only captures a fraction of
-- **College students alone** spend $3,000+ annually on food
-- **Food waste costs** the average household $1,500/year
-- **Meal planning apps** are a $5B+ market growing 15% annually
 
 ## 🚀 Getting Started
 
