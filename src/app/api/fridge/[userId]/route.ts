@@ -3,10 +3,11 @@ import { getFridge, updateFridge } from '@/lib/fileDb';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const userId = parseInt(params.userId);
+    const { userId: userIdStr } = await params;
+    const userId = parseInt(userIdStr);
     const fridge = await getFridge(userId);
     
     if (!fridge) {
@@ -22,10 +23,11 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const userId = parseInt(params.userId);
+    const { userId: userIdStr } = await params;
+    const userId = parseInt(userIdStr);
     const fridgeData = await request.json();
     
     const updatedFridge = await updateFridge(userId, fridgeData);

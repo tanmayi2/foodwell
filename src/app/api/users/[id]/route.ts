@@ -3,10 +3,11 @@ import { getUserById, updateUser } from '@/lib/fileDb';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = parseInt(params.id);
+    const { id } = await params;
+    const userId = parseInt(id);
     const user = await getUserById(userId);
     
     if (!user) {
@@ -22,10 +23,11 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = parseInt(params.id);
+    const { id } = await params;
+    const userId = parseInt(id);
     const userData = await request.json();
     
     const updatedUser = await updateUser(userId, userData);
