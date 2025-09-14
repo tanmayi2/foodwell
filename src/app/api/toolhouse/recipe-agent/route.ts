@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { recipeAgentUrl, recipeAgentApiKey } from '../constants';
 
 interface RecipeAgentRequest {
   message: string;
@@ -43,6 +42,13 @@ interface RecipeAgentResponse {
 }
 
 export async function callToolhouseAgent(message: string, runId?: string): Promise<{ content: string; runId?: string }> {
+  const recipeAgentUrl = process.env.RECIPE_AGENT_URL;
+  const recipeAgentApiKey = process.env.RECIPE_AGENT_API_KEY;
+
+  if (!recipeAgentUrl) {
+    throw new Error('RECIPE_AGENT_URL environment variable is not set');
+  }
+
   const method = runId ? 'PUT' : 'POST';
   const url = runId ? `${recipeAgentUrl}/${runId}` : recipeAgentUrl;
   
