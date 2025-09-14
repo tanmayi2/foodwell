@@ -70,16 +70,6 @@ export function RecipeCard({
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <h3 className="font-semibold text-lg leading-tight">{recipe.name}</h3>
-          {showAddButton && onAddToMealPlan && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => onAddToMealPlan(recipe)}
-              className="ml-2 flex-shrink-0"
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          )}
         </div>
         
         {/* Tags */}
