@@ -1,10 +1,11 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Clock, Users, Flame, ExternalLink, ChefHat, Check, RefreshCw, Plus, X } from 'lucide-react';
-import Image from 'next/image';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { RefreshCw, ExternalLink, Clock, Flame, Users } from "lucide-react";
+import { ChefHat } from "lucide-react";
+import Image from "next/image";
 import { useState } from 'react';
 
 interface Ingredient {

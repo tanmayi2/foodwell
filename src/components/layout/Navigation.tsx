@@ -2,16 +2,17 @@
 
 import {
   Calendar,
-  ChefHat,
-  DollarSign,
-  Heart,
-  History,
   Home,
-  LogOut,
-  Refrigerator,
   ShoppingCart,
-  Truck,
+  BookOpen,
+  Utensils,
   User,
+  Refrigerator,
+  ChefHat,
+  Heart,
+  DollarSign,
+  LogOut,
+  History,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 

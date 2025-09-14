@@ -199,7 +199,7 @@ export default function DeliveryHistoryPage() {
                       </div>
                       {order.delivery_instructions && (
                         <p className="text-sm text-muted-foreground italic">
-                          "{order.delivery_instructions}"
+                          &quot;{order.delivery_instructions}&quot;
                         </p>
                       )}
                     </div>

@@ -50,7 +50,7 @@ const DialogTrigger = ({ asChild, children }: DialogTriggerProps) => {
   const { onOpenChange } = React.useContext(DialogContext);
   
   if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children as React.ReactElement<any>, {
+    return React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
       onClick: () => onOpenChange(true),
     });
   }

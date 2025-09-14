@@ -17,10 +17,8 @@ interface RecipeCardProps {
 
 export function RecipeCard({ 
   recipe, 
-  onAddToMealPlan, 
   onToggleFavorite,
-  isFavorite = false,
-  showAddButton = true 
+  isFavorite = false
 }: RecipeCardProps) {
   const [showAddToListDialog, setShowAddToListDialog] = useState(false);
   return (

@@ -23,7 +23,7 @@ export default function DeliveryDashboard() {
             No Active Orders
           </h2>
           <p className="text-lg text-muted-foreground">
-            You'll see new delivery requests here when they become available
+            You&apos;ll see new delivery requests here when they become available
           </p>
         </div>
       </div>
