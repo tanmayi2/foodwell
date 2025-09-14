@@ -1,0 +1,24 @@
+[
+  {
+    "user_id": 1,
+    "favorites": [301, 303],
+    "custom_lists": [
+      {
+        "id": "list-1",
+        "name": "Quick Meals",
+        "description": "Fast and easy recipes for busy days",
+        "recipe_ids": [302, 304],
+        "created_at": "2024-01-15T10:00:00Z",
+        "user_id": 1
+      },
+      {
+        "id": "list-2", 
+        "name": "Healthy Options",
+        "description": "Nutritious and balanced meals",
+        "recipe_ids": [303, 304],
+        "created_at": "2024-01-20T15:30:00Z",
+        "user_id": 1
+      }
+    ]
+  }
+]
