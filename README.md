@@ -1,5 +1,5 @@
 # FoodWell: The AI-First Instacart
-[Video Demo](https://youtu.be/OcNjoTPtKyQ?si=QXaifWTh_xLXnltY) 
+[Video Demo](https://youtu.be/OcNjoTPtKyQ?si=QXaifWTh_xLXnltY) [Try it Out!](https://foodwell-2.vercel.app/)
 
 ## 🛒 The Challenge: Rebuilding Instacart for the AI Era
 
