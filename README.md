@@ -1,4 +1,4 @@
-# 🍽️ FoodWell - The AI-First Instacart
+# FoodWell: The AI-First Instacart
 
 
 ## 🎯 The Challenge: Rebuilding Instacart for the AI Era
@@ -8,7 +8,7 @@ What if Instacart was built today, from the ground up, with AI at its core? Food
 ## 🏫 Our Origin Story: College Student Meal Prep Hell
 
 **The Problem We Lived:**
-- Standing in grocery aisles with a recipe, realizing half the ingredients aren't available
+- Standing in grocery aisles with a recipe, trying and struggling to plan out the week
 - Buying ingredients for one recipe, then having random leftovers go bad
 - Spending 2+ hours every Sunday planning meals, making lists, and visiting multiple stores
 - Choosing between eating healthy and staying within a tight budget
