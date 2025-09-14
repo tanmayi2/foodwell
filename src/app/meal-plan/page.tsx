@@ -164,13 +164,13 @@ export default function MealPlanPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <Calendar className="h-8 w-8 text-green-600" />
+          <Calendar className="h-8 w-8 text-primary" />
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Meal Plan</h1>
             <p className="text-gray-600">Plan your weekly meals and track your nutrition</p>
           </div>
         </div>
-        <Button className="bg-green-600 hover:bg-green-700">
+        <Button>
           <ShoppingCart className="h-4 w-4 mr-2" />
           Generate Shopping List
         </Button>
@@ -223,7 +223,7 @@ export default function MealPlanPage() {
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <BookOpen className="h-5 w-5 text-blue-600" />
+                  <BookOpen className="h-5 w-5 text-primary" />
                   <span>My Recipe Lists ({userRecipeData.custom_lists.length})</span>
                 </div>
                 <Button onClick={() => setShowCreateList(true)} size="sm">
@@ -276,7 +276,7 @@ export default function MealPlanPage() {
                   {userRecipeData.custom_lists.map(list => {
                     const listRecipes = getRecipesInList(list.id, mockRecipes);
                     return (
-                      <Card key={list.id} className="border-l-4 border-l-blue-500">
+                      <Card key={list.id} className="border-l-4 border-l-primary">
                         <CardHeader className="pb-3">
                           <div className="flex items-center justify-between">
                             <div>
@@ -466,11 +466,11 @@ export default function MealPlanPage() {
                       </div>
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div className="text-center">
-                          <p className="font-semibold text-green-600">{Math.round(dayMacros.protein_g)}g</p>
+                          <p className="font-semibold text-secondary">{Math.round(dayMacros.protein_g)}g</p>
                           <p className="text-gray-600">Protein</p>
                         </div>
                         <div className="text-center">
-                          <p className="font-semibold text-blue-600">{Math.round(dayMacros.carbs_g)}g</p>
+                          <p className="font-semibold text-accent">{Math.round(dayMacros.carbs_g)}g</p>
                           <p className="text-gray-600">Carbs</p>
                         </div>
                         <div className="text-center">
@@ -495,7 +495,7 @@ export default function MealPlanPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <Target className="h-5 w-5 text-green-600" />
+                <Target className="h-5 w-5 text-primary" />
                 <span>Daily Nutrition Targets vs Actual</span>
               </CardTitle>
             </CardHeader>
@@ -554,13 +554,13 @@ export default function MealPlanPage() {
                   <p className="text-sm text-gray-600">Total Calories</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-green-600">
+                  <p className="text-2xl font-bold text-secondary">
                     {Math.round(totalMacros.protein_g)}g
                   </p>
                   <p className="text-sm text-gray-600">Total Protein</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-blue-600">
+                  <p className="text-2xl font-bold text-accent">
                     {new Set(mealPlan.map(entry => entry.recipe.id)).size}
                   </p>
                   <p className="text-sm text-gray-600">Unique Recipes</p>

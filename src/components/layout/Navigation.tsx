@@ -37,7 +37,7 @@ export function Navigation() {
             </Link>
           </div>
           
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-2">
             {navigationItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -47,7 +47,7 @@ export function Navigation() {
                   <Button
                     variant={isActive ? "default" : "ghost"}
                     className={cn(
-                      "flex items-center space-x-2 px-3 py-2",
+                      "flex items-center space-x-1 px-6 py-2 min-w-[100px] justify-center",
                       isActive && "bg-primary text-primary-foreground hover:bg-primary/90",
                       !isActive && "hover:bg-primary/10 hover:text-primary"
                     )}

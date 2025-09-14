@@ -205,7 +205,7 @@ export default function FridgePage() {
         </div>
         <Dialog open={showAddModal} onOpenChange={setShowAddModal}>
           <DialogTrigger asChild>
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Button className="bg-primary hover:bg-primary/90">
               <Plus className="h-4 w-4 mr-2" />
               Add Item
             </Button>
@@ -269,7 +269,7 @@ export default function FridgePage() {
                 <Button variant="outline" onClick={resetNewItem} disabled={saving}>
                   Cancel
                 </Button>
-                <Button onClick={addNewItem} disabled={saving} className="bg-blue-600 hover:bg-blue-700">
+                <Button onClick={addNewItem} disabled={saving} className="bg-primary hover:bg-primary/90">
                   {saving ? 'Adding...' : 'Add Item'}
                 </Button>
               </div>

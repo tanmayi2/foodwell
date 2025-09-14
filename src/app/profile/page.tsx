@@ -118,7 +118,7 @@ export default function ProfilePage() {
     if (editedUser) {
       setEditedUser((prev) => prev ? ({
         ...prev,
-        [field]: { ...prev[field], [subField]: value },
+        [field]: { ...(prev[field] as Record<string, any>), [subField]: value },
       }) : null);
     }
   };
@@ -157,12 +157,12 @@ export default function ProfilePage() {
         <div className="text-red-600">
           <p className="text-lg font-medium">Error loading profile</p>
           <p className="text-sm">{error}</p>
-          <button 
+          <Button 
             onClick={fetchUser}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="mt-4"
           >
             Try Again
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -192,7 +192,7 @@ export default function ProfilePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <UserIcon className="h-8 w-8 text-blue-600" />
+          <UserIcon className="h-8 w-8 text-primary" />
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
             <p className="text-gray-600">
@@ -203,7 +203,6 @@ export default function ProfilePage() {
         {!isEditing ? (
           <Button
             onClick={handleEdit}
-            className="bg-blue-600 hover:bg-blue-700"
           >
             <Edit2 className="h-4 w-4 mr-2" />
             Edit Profile
@@ -764,7 +763,7 @@ export default function ProfilePage() {
                 label: "Protein (g)",
                 color: "text-green-600",
               },
-              { key: "carbs_g", label: "Carbs (g)", color: "text-blue-600" },
+              { key: "carbs_g", label: "Carbs (g)", color: "text-secondary" },
               { key: "fat_g", label: "Fat (g)", color: "text-yellow-600" },
               { key: "fiber_g", label: "Fiber (g)", color: "text-purple-600" },
             ].map((macro) => (
