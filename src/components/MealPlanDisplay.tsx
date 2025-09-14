@@ -82,14 +82,14 @@ function DayPlanCard({
           <div className="md:col-span-1">
             <div className="relative w-full h-32 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
               {dayPlan.lunch.thumbnail ? (
-                <Image
+                <img
                   src={dayPlan.lunch.thumbnail}
                   alt={dayPlan.lunch.name}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                   onError={(e) => {
                     console.log("Image failed to load:", dayPlan.lunch.thumbnail);
                     e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement!.innerHTML = '<div class="flex items-center justify-center text-gray-400 h-full"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8.1 13.34l2.83-2.83L12.93 12l2.83-2.83 1.41 1.41L14.34 13.34l2.83 2.83-1.41 1.41L12.93 14.75l-2.83 2.83-1.41-1.41L11.52 13.34 8.69 10.51l1.41-1.41L12.93 12z"/></svg></div>';
                   }}
                 />
               ) : (
@@ -133,14 +133,14 @@ function DayPlanCard({
           <div className="md:col-span-1">
             <div className="relative w-full h-32 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
               {dayPlan.dinner.thumbnail ? (
-                <Image
+                <img
                   src={dayPlan.dinner.thumbnail}
                   alt={dayPlan.dinner.name}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                   onError={(e) => {
                     console.log("Image failed to load:", dayPlan.dinner.thumbnail);
                     e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement!.innerHTML = '<div class="flex items-center justify-center text-gray-400 h-full"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8.1 13.34l2.83-2.83L12.93 12l2.83-2.83 1.41 1.41L14.34 13.34l2.83 2.83-1.41 1.41L12.93 14.75l-2.83 2.83-1.41-1.41L11.52 13.34 8.69 10.51l1.41-1.41L12.93 12z"/></svg></div>';
                   }}
                 />
               ) : (

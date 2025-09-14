@@ -107,7 +107,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           message:
-            "Generate exactly 7 day meal plans (lunch + dinner only). Return as JSON array format: [{day: 1, lunch: {id, name, calories, time_minutes, ingredients, url}, dinner: {same format}}]. Keep responses concise.",
+            "Generate exactly 7 day meal plans (lunch + dinner only). Return as JSON array format: [{day: 1, lunch: {id, name, calories, time_minutes, ingredients, url, thumbnail}, dinner: {same format}}]. Keep responses concise.",
           userProfile,
         }),
         signal: controller.signal,
@@ -154,14 +154,20 @@ export default function Home() {
 
           // Ensure we have an array format for the meal plan
           if (Array.isArray(parsedContent)) {
-            console.log("Parsed meal plan array:", JSON.stringify(parsedContent, null, 2));
+            console.log(
+              "Parsed meal plan array:",
+              JSON.stringify(parsedContent, null, 2)
+            );
             setMealPlan(parsedContent);
           } else if (parsedContent && typeof parsedContent === "object") {
             // If it's an object, try to extract the meal plan array
             const mealPlanArray = parsedContent.mealPlan ||
               parsedContent.days ||
               parsedContent.meals || [parsedContent];
-            console.log("Extracted meal plan array:", JSON.stringify(mealPlanArray, null, 2));
+            console.log(
+              "Extracted meal plan array:",
+              JSON.stringify(mealPlanArray, null, 2)
+            );
             setMealPlan(
               Array.isArray(mealPlanArray) ? mealPlanArray : [mealPlanArray]
             );
