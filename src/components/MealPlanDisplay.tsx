@@ -70,10 +70,7 @@ function DayPlanCard({
     <Card className="w-full overflow-hidden hover:shadow-lg transition-shadow">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-xl">Day {dayNumber}</CardTitle>
-          <Badge variant="outline" className="text-sm">
-            {dayPlan.lunch.calories + dayPlan.dinner.calories} total calories
-          </Badge>
+          <h3 className="text-xl font-bold">Day {dayPlan.day}</h3>
         </div>
       </CardHeader>
 

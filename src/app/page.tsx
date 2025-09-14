@@ -107,7 +107,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           message:
-            "Generate exactly 5 day meal plans (lunch + dinner only). Return as JSON array format: [{day: 1, lunch: {id, name, calories, time_minutes, ingredients, url, thumbnail}, dinner: {same format}}]. Keep responses concise.",
+            "Generate exactly 5 day meal plans (lunch + dinner only). Return as JSON array format: [{day: 1, lunch: {id, name, calories, time_minutes, ingredients, url, thumbnail}, dinner: {same format}}]. Keep responses concise. USE REAL RECIPES FROM THE INTERNET WITH REAL URLS. DON'T HALLUCINATE THEM.",
           userProfile,
         }),
         signal: controller.signal,
