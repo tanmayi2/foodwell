@@ -76,10 +76,10 @@ export default function RecipesPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center space-x-3">
-        <ChefHat className="h-8 w-8 text-orange-600" />
+        <ChefHat className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Recipe Library</h1>
-          <p className="text-gray-600">Discover and explore delicious recipes</p>
+          <h1 className="text-3xl font-bold text-foreground">Recipe Library</h1>
+          <p className="text-muted-foreground">Discover and explore delicious recipes</p>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ export default function RecipesPage() {
         <CardContent className="p-6 space-y-4">
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               placeholder="Search recipes or ingredients..."
               value={searchTerm}
@@ -196,7 +196,7 @@ export default function RecipesPage() {
 
       {/* Results */}
       <div className="flex items-center justify-between">
-        <p className="text-gray-600">
+        <p className="text-muted-foreground">
           Showing {filteredRecipes.length} of {recipes.length} recipes
         </p>
       </div>
@@ -205,9 +205,9 @@ export default function RecipesPage() {
       {filteredRecipes.length === 0 ? (
         <Card>
           <CardContent className="text-center py-12">
-            <ChefHat className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No recipes found</h3>
-            <p className="text-gray-500">Try adjusting your search or filters</p>
+            <ChefHat className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">No recipes found</h3>
+            <p className="text-muted-foreground">Try adjusting your search or filters</p>
           </CardContent>
         </Card>
       ) : (

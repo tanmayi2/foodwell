@@ -33,13 +33,13 @@ export default function FridgePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <Refrigerator className="h-8 w-8 text-blue-600" />
+          <Refrigerator className="h-8 w-8 text-primary" />
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">My Fridge</h1>
-            <p className="text-gray-600">Manage your ingredients and track what you have</p>
+            <h1 className="text-3xl font-bold text-foreground">My Fridge</h1>
+            <p className="text-muted-foreground">Manage your ingredients and track what you have</p>
           </div>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button className="bg-primary hover:bg-primary/90">
           <Plus className="h-4 w-4 mr-2" />
           Add Item
         </Button>
@@ -49,10 +49,10 @@ export default function FridgePage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardContent className="flex items-center p-4">
-            <Package className="h-8 w-8 text-blue-600 mr-3" />
+            <Package className="h-8 w-8 text-accent mr-3" />
             <div>
               <p className="text-2xl font-bold">{fridgeItems.length}</p>
-              <p className="text-sm text-gray-600">Total Items</p>
+              <p className="text-sm text-muted-foreground">Total Items</p>
             </div>
           </CardContent>
         </Card>
@@ -67,7 +67,7 @@ export default function FridgePage() {
                   item.quantity <= 2 || (item.unit === 'grams' && item.quantity <= 100)
                 ).length}
               </p>
-              <p className="text-sm text-gray-600">Low Stock</p>
+              <p className="text-sm text-muted-foreground">Low Stock</p>
             </div>
           </CardContent>
         </Card>
@@ -82,7 +82,7 @@ export default function FridgePage() {
                   item.quantity > 2 && !(item.unit === 'grams' && item.quantity <= 100)
                 ).length}
               </p>
-              <p className="text-sm text-gray-600">Well Stocked</p>
+              <p className="text-sm text-muted-foreground">Well Stocked</p>
             </div>
           </CardContent>
         </Card>
@@ -92,7 +92,7 @@ export default function FridgePage() {
       <Card>
         <CardContent className="p-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               placeholder="Search your fridge items..."
               value={searchTerm}
@@ -111,8 +111,8 @@ export default function FridgePage() {
         <CardContent>
           {filteredItems.length === 0 ? (
             <div className="text-center py-8">
-              <Package className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500">No items found</p>
+              <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <p className="text-muted-foreground">No items found</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -123,7 +123,14 @@ export default function FridgePage() {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-medium capitalize">{item.name}</h3>
-                    <Badge variant={getQuantityBadgeVariant(item)}>
+                    <Badge 
+                      variant={getQuantityBadgeVariant(item)}
+                      className={
+                        item.quantity <= 2 || (item.unit === 'grams' && item.quantity <= 100)
+                          ? 'bg-red-100 text-red-800 border-red-200 hover:bg-red-200'
+                          : 'bg-green-100 text-green-800 border-green-200 hover:bg-green-200'
+                      }
+                    >
                       {item.quantity <= 2 || (item.unit === 'grams' && item.quantity <= 100) 
                         ? 'Low' 
                         : 'Good'
@@ -151,12 +158,12 @@ export default function FridgePage() {
       </Card>
 
       {/* Shopping Suggestions */}
-      <Card className="bg-orange-50 border-orange-200">
+      <Card className="bg-secondary/10 border-secondary/20">
         <CardHeader>
-          <CardTitle className="text-orange-800">Shopping Suggestions</CardTitle>
+          <CardTitle className="text-secondary">Shopping Suggestions</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-orange-700 mb-4">
+          <p className="text-secondary mb-4">
             Based on your low stock items, consider adding these to your shopping list:
           </p>
           <div className="flex flex-wrap gap-2">
@@ -165,7 +172,7 @@ export default function FridgePage() {
                 item.quantity <= 2 || (item.unit === 'grams' && item.quantity <= 100)
               )
               .map((item, index) => (
-                <Badge key={index} variant="outline" className="border-orange-300 text-orange-700">
+                <Badge key={index} variant="outline" className="border-secondary text-secondary">
                   {item.name}
                 </Badge>
               ))

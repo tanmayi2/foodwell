@@ -25,7 +25,7 @@ export function RecipeCard({
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       {/* Recipe Image */}
-      <div className="relative h-48 bg-gray-200">
+      <div className="relative h-48 bg-muted">
         {recipe.thumbnail ? (
           <Image
             src={recipe.thumbnail}
@@ -34,12 +34,12 @@ export function RecipeCard({
             className="object-cover"
           />
         ) : (
-          <div className="flex items-center justify-center h-full bg-gradient-to-br from-orange-100 to-red-100">
+          <div className="flex items-center justify-center h-full bg-gradient-to-br from-amaranth-pink/20 to-bright-pink-crayola/20">
             <span className="text-4xl">🍽️</span>
           </div>
         )}
         <div className="absolute top-2 right-2 flex gap-2">
-          <Badge variant="secondary" className="bg-white/90">
+          <Badge variant="secondary" className="bg-white/90 text-gray-800">
             <Clock className="h-3 w-3 mr-1" />
             {recipe.time_minutes}m
           </Badge>
@@ -49,7 +49,7 @@ export function RecipeCard({
             <Button
               size="sm"
               variant="ghost"
-              className={`h-8 w-8 p-0 ${isFavorite ? 'text-red-500 bg-white/90' : 'text-gray-400 bg-white/90'} hover:bg-white`}
+              className={`h-8 w-8 p-0 ${isFavorite ? 'text-rusty-red bg-card/90' : 'text-muted-foreground bg-card/90'} hover:bg-card`}
               onClick={() => onToggleFavorite(recipe)}
             >
               <Heart className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
@@ -59,7 +59,7 @@ export function RecipeCard({
             <Button
               size="sm"
               variant="ghost"
-              className="h-8 w-8 p-0 text-gray-400 bg-white/90 hover:bg-white"
+              className="h-8 w-8 p-0 text-muted-foreground bg-card/90 hover:bg-card"
               onClick={() => onAddToList(recipe)}
             >
               <BookmarkPlus className="h-4 w-4" />
@@ -98,7 +98,7 @@ export function RecipeCard({
           {recipe.tags.difficulty_level.map((difficulty) => (
             <Badge 
               key={difficulty} 
-              variant={difficulty === 'Easy' ? 'default' : difficulty === 'Medium' ? 'secondary' : 'destructive'}
+              variant={difficulty === 'easy' ? 'default' : difficulty === 'intermediate' ? 'secondary' : 'destructive'}
               className="text-xs"
             >
               {difficulty}
@@ -111,17 +111,17 @@ export function RecipeCard({
         {/* Macros */}
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div className="flex items-center space-x-2">
-            <Flame className="h-4 w-4 text-orange-500" />
+            <Flame className="h-4 w-4 text-rusty-red" />
             <div>
               <p className="text-sm font-medium">{recipe.macros.calories}</p>
-              <p className="text-xs text-gray-500">calories</p>
+              <p className="text-xs text-muted-foreground">calories</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <Users className="h-4 w-4 text-blue-500" />
+            <Users className="h-4 w-4 text-accent" />
             <div>
               <p className="text-sm font-medium">{recipe.num_servings}</p>
-              <p className="text-xs text-gray-500">servings</p>
+              <p className="text-xs text-muted-foreground">servings</p>
             </div>
           </div>
         </div>
@@ -129,27 +129,27 @@ export function RecipeCard({
         {/* Detailed Macros */}
         <div className="grid grid-cols-4 gap-2 text-center">
           <div>
-            <p className="text-sm font-medium text-green-600">{recipe.macros.protein_g}g</p>
-            <p className="text-xs text-gray-500">Protein</p>
+            <p className="text-sm font-medium text-primary">{recipe.macros.protein_g}g</p>
+            <p className="text-xs text-muted-foreground">Protein</p>
           </div>
           <div>
-            <p className="text-sm font-medium text-blue-600">{recipe.macros.carbs_g}g</p>
-            <p className="text-xs text-gray-500">Carbs</p>
+            <p className="text-sm font-medium text-accent">{recipe.macros.carbs_g}g</p>
+            <p className="text-xs text-muted-foreground">Carbs</p>
           </div>
           <div>
-            <p className="text-sm font-medium text-yellow-600">{recipe.macros.fat_g}g</p>
-            <p className="text-xs text-gray-500">Fat</p>
+            <p className="text-sm font-medium text-secondary">{recipe.macros.fat_g}g</p>
+            <p className="text-xs text-muted-foreground">Fat</p>
           </div>
           <div>
-            <p className="text-sm font-medium text-purple-600">{recipe.macros.fiber_g}g</p>
-            <p className="text-xs text-gray-500">Fiber</p>
+            <p className="text-sm font-medium" style={{color: 'var(--amaranth-pink)'}}>{recipe.macros.fiber_g}g</p>
+            <p className="text-xs text-muted-foreground">Fiber</p>
           </div>
         </div>
 
         {/* Equipment needed */}
         {recipe.equipment_needed.length > 0 && (
           <div className="mt-4">
-            <p className="text-xs text-gray-500 mb-1">Equipment needed:</p>
+            <p className="text-xs text-muted-foreground mb-1">Equipment needed:</p>
             <div className="flex flex-wrap gap-1">
               {recipe.equipment_needed.slice(0, 3).map((equipment) => (
                 <Badge key={equipment} variant="outline" className="text-xs">
