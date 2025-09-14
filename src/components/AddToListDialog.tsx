@@ -1,14 +1,20 @@
 "use client";
 
+import { BookmarkPlus, Check, Plus, X } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import React, { useState } from "react";
-import { Recipe } from "@/types";
-import { useRecipes } from "@/contexts/RecipeContext";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { Plus, Check, BookmarkPlus, X } from "lucide-react";
+import { Recipe } from "@/types";
+import { useRecipes } from "@/contexts/RecipeContext";
 
 interface AddToListDialogProps {
   recipe: Recipe | null;
@@ -16,8 +22,13 @@ interface AddToListDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function AddToListDialog({ recipe, open, onOpenChange }: AddToListDialogProps) {
-  const { userRecipeData, addToList, createList, removeFromList } = useRecipes();
+export function AddToListDialog({
+  recipe,
+  open,
+  onOpenChange,
+}: AddToListDialogProps) {
+  const { userRecipeData, addToList, createList, removeFromList } =
+    useRecipes();
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [newListName, setNewListName] = useState("");
   const [newListDescription, setNewListDescription] = useState("");
@@ -43,7 +54,7 @@ export function AddToListDialog({ recipe, open, onOpenChange }: AddToListDialogP
   };
 
   const isRecipeInList = (listId: string) => {
-    const list = userRecipeData.custom_lists.find(l => l.id === listId);
+    const list = userRecipeData.custom_lists.find((l) => l.id === listId);
     return list?.recipe_ids.includes(recipe.id) || false;
   };
 
@@ -53,14 +64,16 @@ export function AddToListDialog({ recipe, open, onOpenChange }: AddToListDialogP
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <BookmarkPlus className="h-5 w-5" />
-            Add "{recipe.name}" to List
+            Add &quot;{recipe.name}&quot; to List
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4">
           {/* Existing Lists */}
           <div>
-            <h4 className="font-medium text-sm text-gray-700 mb-3">Your Lists</h4>
+            <h4 className="font-medium text-sm text-gray-700 mb-3">
+              Your Lists
+            </h4>
             {userRecipeData.custom_lists.length === 0 ? (
               <p className="text-sm text-gray-500 text-center py-4">
                 No custom lists yet. Create one below!
@@ -80,7 +93,9 @@ export function AddToListDialog({ recipe, open, onOpenChange }: AddToListDialogP
                         </Badge>
                       </div>
                       {list.description && (
-                        <p className="text-xs text-gray-500 mt-1">{list.description}</p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          {list.description}
+                        </p>
                       )}
                     </div>
                     <Button
@@ -120,7 +135,9 @@ export function AddToListDialog({ recipe, open, onOpenChange }: AddToListDialogP
               </Button>
             ) : (
               <div className="space-y-3">
-                <h4 className="font-medium text-sm text-gray-700">Create New List</h4>
+                <h4 className="font-medium text-sm text-gray-700">
+                  Create New List
+                </h4>
                 <div>
                   <Label htmlFor="list-name">List Name</Label>
                   <Input
@@ -131,7 +148,9 @@ export function AddToListDialog({ recipe, open, onOpenChange }: AddToListDialogP
                   />
                 </div>
                 <div>
-                  <Label htmlFor="list-description">Description (optional)</Label>
+                  <Label htmlFor="list-description">
+                    Description (optional)
+                  </Label>
                   <Input
                     id="list-description"
                     placeholder="Brief description of this list"
