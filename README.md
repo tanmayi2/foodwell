@@ -1,39 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍽️ FoodWell - The AI-First Instacart
 
-## Getting Started
 
-First, run the development server:
+## 🎯 The Challenge: Rebuilding Instacart for the AI Era
 
+What if Instacart was built today, from the ground up, with AI at its core? FoodWell is that answer—born from the daily struggles of college students trying to meal prep on a budget while juggling classes, work, and social life.
+
+## 🏫 Our Origin Story: College Student Meal Prep Hell
+
+**The Problem We Lived:**
+- Standing in grocery aisles with a recipe, realizing half the ingredients aren't available
+- Buying ingredients for one recipe, then having random leftovers go bad
+- Spending 2+ hours every Sunday planning meals, making lists, and visiting multiple stores
+- Choosing between eating healthy and staying within a tight budget
+- Recipe apps that don't consider what's actually in your fridge, kitchen or local stores
+
+**The Lightbulb Moment:** What if an AI could instantly know what's available at every store near you, suggest recipes based on your fridge contents, and optimize your entire shopping experience—all before you even leave your dorm?
+
+## 🚀 FoodWell: Instacart Reimagined with AI-First Thinking
+
+### 🤖 Why AI-First Beats Traditional Instacart
+
+**Traditional Instacart:** You know what you want → You order it → It gets delivered
+**FoodWell:** AI knows what you need before you do → Optimizes everything → You eat better for less
+
+### 🧠 The AI Advantage
+
+**1. Predictive Intelligence**
+- AI agents analyze your fridge contents, dietary preferences, and budget constraints
+- Suggests complete meal plans that use ingredients efficiently across multiple recipes
+- Predicts when you'll run out of staples and auto-suggests restocking
+
+**2. Real-Time Optimization**
+- Live inventory tracking across all local stores
+- Dynamic pricing comparison that saves you money on every item
+- Route optimization for multi-store shopping (something Instacart can't do)
+
+**3. Waste Elimination**
+- AI ensures every ingredient you buy gets used in multiple recipes
+- Tracks expiration dates and suggests recipes to use items before they spoil
+- Learns your consumption patterns to prevent over-buying
+
+### 🎓 Built for the Modern Student (and Everyone Else)
+
+**The Student Use Case:**
+- "I have $50 for groceries this week and 3 hours to meal prep"
+- AI instantly generates a complete meal plan with shopping list optimized for your budget and schedule
+- Suggests recipes that share ingredients to minimize waste and cost
+
+**But It Scales Beyond Students:**
+- Busy professionals who want healthy meals without the planning overhead
+- Families managing complex dietary restrictions across multiple members
+- Anyone who's tired of food waste and wants to eat better for less
+
+## 🛠️ Technology Stack
+
+- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **UI Components**: Shadcn/ui for modern, accessible design
+- **AI Integration**: Toolhouse AI agents for ingredient and recipe intelligence
+- **Data Management**: JSON-based data store with TypeScript interfaces
+- **Styling**: Modern responsive design with dark/light mode support
+
+## 🏗️ The AI-First Architecture That Changes Everything
+
+Unlike Instacart's traditional marketplace model, FoodWell is built around intelligent agents that work together:
+
+- **Ingredient Intelligence Agent**: Real-time inventory and pricing across all local stores
+- **Recipe Optimization Agent**: Suggests meals that maximize ingredient overlap and minimize waste
+- **Budget Optimization Agent**: Finds the cheapest combination of stores for your shopping list
+- **Predictive Planning Agent**: Learns your patterns to suggest meals before you're even hungry
+
+## 💡 The Instacart Disruption Strategy
+
+### What Instacart Does Well (That We Keep):
+✅ On-demand grocery delivery  
+✅ Store partnerships and inventory access  
+✅ User-friendly mobile experience  
+
+### Where Instacart Falls Short (That We Fix):
+❌ **Reactive, not proactive** → We predict what you need  
+❌ **Single-store focus** → We optimize across all stores  
+❌ **No meal planning intelligence** → We plan your entire week  
+❌ **Doesn't prevent food waste** → We ensure every ingredient gets used  
+❌ **No budget optimization** → We find the cheapest path to great meals  
+
+### The Market Opportunity:
+- **$150B+ grocery market** that Instacart only captures a fraction of
+- **College students alone** spend $3,000+ annually on food
+- **Food waste costs** the average household $1,500/year
+- **Meal planning apps** are a $5B+ market growing 15% annually
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- npm, yarn, pnpm, or bun
+- Toolhouse API key (for AI agents)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd foodwell
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+# Add your Toolhouse API credentials
+```
+
+4. Run the development server:
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. Open [http://localhost:3000](http://localhost:3000) to see FoodWell in action!
 
 
 ## Repo Structure
